@@ -1,0 +1,50 @@
+body{
+    background-color: pink;
+}
+.navbar{
+    height: 120px;           /* 추후 수정 */
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar_up{
+    background-color: red;
+    height: 25%;
+}
+
+.navbar_down{
+    background-color: orange;
+    height: 50%;
+}
+
+.navbar_description{
+    background-color: aqua;
+    height: 25%;
+}
+
+.main_container{
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    padding: 8% 25%;
+}
+
+.select_container{
+    background-color: green;
+    width: 100%;
+}
+
+.result_button_list{
+    display: flex;
+    flex-direction: row;
+}
+
+.result_button{
+    width: 50%;
+}
+
+.result_container{
+    background-color: blue;
+    width: 100%;
+}
