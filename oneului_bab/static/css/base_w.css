@@ -1,38 +1,109 @@
 body{
-    background-color: pink;
+    background-color: #ECE8E2;
 }
 .navbar{
-    height: 120px;           /* 추후 수정 */
-    background-color: blue;
+    height: 90px;           /* 추후 수정 */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.navbar_top{
+    background: linear-gradient(to right, #ECE8E2, #EAEAEA);
+    height: 35%;
+}
+
+.navbar_top_container{
+    padding: 0px 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbar_detail{
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar_detail_col{
     display: flex;
     flex-direction: column;
 }
 
-.navbar_up{
-    background-color: red;
-    height: 25%;
+.navbar_detail_col_text{
+    font-size: 14px;
+    margin-top: 4px;
 }
 
-.navbar_down{
-    background-color: orange;
-    height: 50%;
+.navbar_log_description{
+    font-size: 17px;
 }
 
-.navbar_description{
-    background-color: aqua;
-    height: 25%;
+.navbar_save_text{
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+.navbar_login_text{
+    margin-left: 10px;
+    font-size: 17px;
+}
+.navbar_bottom{
+    background: linear-gradient(to right, #ECE8E2, #EAEAEA);
+    height: 60%;
+    border-top: solid 1px #D4D0CB;
+    border-bottom: solid 3px #D4D0CB;
+}
+
+.navbar_bottom_container{
+    padding: 0px 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbar_log_name{
+    font-size: 35px;
+}
+
+.navbar_category{
+    background-color: #ECE8E2;
+    border-top: solid 3px #D4D0CB;
+    border-bottom: solid 3px #D4D0CB;
+    height: 35px;
 }
 
 .main_container{
-    background-color: yellow;
+    background-color: #ECE8E2;
     display: flex;
     flex-direction: column;
-    padding: 8% 25%;
+    padding: 5% 25%;
 }
 
 .select_container{
-    background-color: green;
+    background-color: #ECE8E2;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.select_detail_list{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}
+
+.select_detail_list > li{
+    float: left;
+    width: 25%;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 10px 0px;
 }
 
 .result_button_list{
@@ -44,7 +115,45 @@ body{
     width: 50%;
 }
 
-.result_container{
+.Ad{
     background-color: blue;
     width: 100%;
+    margin: 10px 0px;
+}
+
+.result_list{
+    width: 100%;
+    background-color: #f8f4ed;
+    border: solid 2px #D4D0CB;
+}
+
+.result_menu{
+    padding: 2%;
+}
+
+ul{
+    list-style: none;
+}
+
+.result_menu li{
+    display: flex;
+    flex-direction: row;
+}
+
+.photo_info{
+    width: 60px;
+    height: 60px;
+    background-color: black;
+}
+
+.menu_info{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.like_info{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
 }

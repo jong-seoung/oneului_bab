@@ -26,39 +26,39 @@
     <body>
         {% block nav %}
         <nav class="navbar">
-            <div class="navbar_up">
-                네비바 상단
+            <div class="navbar_top">
+                <div class="navbar_top_container">
+                    <div class="navbar_detail">
+                        <div class="navbar_log_description">오늘의 밥</div>
+                    </div>
+                    <div class="navbar_detail">
+                        <div class="navbar_save_text">저장</div>
+                        <div class="navbar_login_text">로그인</div>
+                    </div>
+                </div>
             </div>
-            <div class="navbar_down">
-                네비바 하단
+            <div class="navbar_bottom">
+                <div class="navbar_bottom_container">
+                    <div class="navbar_detail">
+                        <div class="navbar_log_name">O-Bab</div>
+                    </div>
+                    <div class="navbar_detail_col">
+                        <div class="navbar_detail_col_text">바탕화면에 추가</div>
+                        <div class="navbar_detail_col_text">북마크에 추가</div>
+                    </div>
+                </div>
             </div>
-            <div class="navbar_description">
-                설명
-            </div>
-        </nav>  
+        </nav>
+        <div class="navbar_category">
+            navbar_category
+        </div>
         {% endblock nav %}
         
-        {% block content %}
+        
         <div class="main_container">
-            <div class="select_container">
-                <div class="select_list">리스트1</div>
-                <div class="select_list">리스트1</div>
-                <div class="select_list">리스트1</div>
-                <div class="select_list">리스트1</div>
-                <div class="select_list">리스트1</div>
-            </div>
-            <div class="result_button_list">
-                <button class="result_button">
-                    랜덤 버튼
-                </button>
-                <button class="result_button">
-                    버튼
-                </button>
-            </div>
-            <div class="result_container">
-                결과 값
-            </div>
-        </div>
+        {% block content %}
         {% endblock content %}
+        </div>
+        
         </body>
 </html>
