@@ -7,21 +7,20 @@
         <title>Django-Tutorial</title>
         {% endblock title %}
 
-        <!-- 페이지 별 메타 데이터 공간 -->
-        {% block meta %}
-        {% endblock meta %}
-
         <!-- 페이지 별 스크립트 공간 -->
         {% block script %}
         {% endblock script %}
 
-        <!-- 페이지 별 스크립트 공간 -->
+        <!-- 페이지 별 메타 데이터 공간 -->
+        {% block meta %}
+        {% endblock meta %}
+
+        <!-- 페이지 별 Css 공간 -->
         {% block css %}
         {% endblock css %}
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="{% static 'css/base_w.css' %}">
-
     </head>
     <body>
         {% block nav %}
@@ -43,22 +42,27 @@
                         <div class="navbar_log_name">O-Bab</div>
                     </div>
                     <div class="navbar_detail_col">
-                        <div class="navbar_detail_col_text">바탕화면에 추가</div>
+                        <div class="navbar_detail_col_text" onclick="fnIconCreate()">바탕화면에 추가</div>
                         <div class="navbar_detail_col_text">북마크에 추가</div>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="navbar_category">
-            navbar_category
+            <div class="category_text">Home</div>
+            <div class="category_text">메뉴 추천 하기</div>
+            <div class="category_text">문의하기</div>
         </div>
         {% endblock nav %}
         
-        
+        <div class="Ad">
+            <div class="Ad_box">광고</div>
+        </div>
         <div class="main_container">
+        
         {% block content %}
         {% endblock content %}
         </div>
-        
-        </body>
+        <script src="static/js/base.js"></script>
+    </body>
 </html>

@@ -1,43 +1,46 @@
 {% extends 'base.html' %}
-        
+
+{% block script %}
+{% endblock script %}
+
 {% block content %}
 <div class="select_container">
     <div class="select_list">
         <ul class="select_detail_list">
-            <li>아무거나</li>
-            <li>면</li>
-            <li>밥</li>
-            <li>빵</li>
+            <li class="menu-link menu-active" type='select_menu' name='selectall1' onclick='selectAll1(this)'>아무거나</li>
+            <li class="menu-link" type='select_menu' name='choice1' onclick='checkSelectAll1(this)'>면</li>
+            <li class="menu-link" type='select_menu' name='choice1' onclick='checkSelectAll1(this)'>밥</li>
+            <li class="menu-link" type='select_menu' name='choice1' onclick='checkSelectAll1(this)'>빵</li>
         </ul>
     </div>
     <div class="select_list">
         <ul class="select_detail_list">
-            <li>아무거나</li>
-            <li>국물 많이</li>
-            <li>국물 쪼금</li>
-            <li>국물 없음</li>
+            <li class="menu-link menu-active" type='select_menu' name='selectall2' onclick='selectAll2(this)'>아무거나</li>
+            <li class="menu-link" type='select_menu' name='choice2' onclick='checkSelectAll2(this)'>국물 많이</li>
+            <li class="menu-link" type='select_menu' name='choice2' onclick='checkSelectAll2(this)'>국물 쪼금</li>
+            <li class="menu-link" type='select_menu' name='choice2' onclick='checkSelectAll2(this)'>국물 없음</li>
         </ul>
     </div>
     <div class="select_list">
         <ul class="select_detail_list">
-            <li>아무거나</li>
-            <li>매움</li>
-            <li>보통</li>
-            <li>순함</li>
+            <li class="menu-link menu-active" type='select_menu' name='selectall3' onclick='selectAll3(this)'>아무거나</li>
+            <li class="menu-link" type='select_menu' name='choice3' onclick='checkSelectAll3(this)'>매움</li>
+            <li class="menu-link" type='select_menu' name='choice3' onclick='checkSelectAll3(this)'>보통</li>
+            <li class="menu-link" type='select_menu' name='choice3' onclick='checkSelectAll3(this)'>순함</li>
         </ul>
     </div>
     <div class="select_list">
         <ul class="select_detail_list">
-            <li>아무거나</li>
-            <li>Cool</li>
-            <li>Hot</li>
+            <li class="menu-link menu-active" type='select_menu' name='selectall4' onclick='selectAll4(this)'>아무거나</li>
+            <li class="menu-link" type='select_menu' name='choice4' onclick='checkSelectAll4(this)'>Cool</li>
+            <li class="menu-link" type='select_menu' name='choice4' onclick='checkSelectAll4(this)'>Hot</li>
         </ul>
     </div>
     <div class="select_list">
         <ul class="select_detail_list">
-            <li>아무거나</li>
-            <li>가볍게 먹기 좋음</li>
-            <li>든든하게 먹고 싶음</li>
+            <li class="menu-link menu-active" type='select_menu' name='selectall5' onclick='selectAll5(this)'>아무거나</li>
+            <li class="menu-link" type='select_menu' name='choice5' onclick='checkSelectAll5(this)'>가볍게 먹기 좋음</li>
+            <li class="menu-link" type='select_menu' name='choice5' onclick='checkSelectAll5(this)'>든든하게 먹고 싶음</li>
         </ul>
     </div>
 </div>
@@ -48,9 +51,6 @@
     <button class="result_button">
         버튼
     </button>
-</div>
-<div class="Ad">
-    광고
 </div>
 <div class="result_list">
     <ul class="result_menu">

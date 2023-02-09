@@ -1,11 +1,20 @@
 body{
     background-color: #ECE8E2;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
 }
+
+div{
+    color: #7f7d79;;
+}
+
 .navbar{
     height: 90px;           /* 추후 수정 */
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .navbar_top{
@@ -38,16 +47,19 @@ body{
 
 .navbar_log_description{
     font-size: 17px;
+    line-height: 200%;
 }
 
 .navbar_save_text{
     margin-right: 10px;
     font-size: 17px;
+    line-height: 200%;
 }
 
 .navbar_login_text{
     margin-left: 10px;
     font-size: 17px;
+    line-height: 200%;
 }
 .navbar_bottom{
     background: linear-gradient(to right, #ECE8E2, #EAEAEA);
@@ -66,20 +78,30 @@ body{
 
 .navbar_log_name{
     font-size: 35px;
+    line-height: 150%;
+    color: #83817e;
 }
 
 .navbar_category{
     background-color: #ECE8E2;
-    border-top: solid 3px #D4D0CB;
     border-bottom: solid 3px #D4D0CB;
     height: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.category_text{
+    margin: 0px 20px;
+    font-size: 17px;
+    line-height: 30px;
 }
 
 .main_container{
     background-color: #ECE8E2;
     display: flex;
     flex-direction: column;
-    padding: 5% 25%;
+    padding: 0px 25%;
 }
 
 .select_container{
@@ -94,17 +116,25 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: start;
-    border-top: solid 2px black;
-    border-bottom: solid 2px black;
+    border-top: solid 2px #a4a29d;
+    /* border-bottom: solid 2px #D4D0CB; */
+    margin-bottom: 0px;
 }
 
-.select_detail_list > li{
+.menu-link {
     float: left;
     width: 25%;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
-    margin: 10px 0px;
+    line-height: 60px;
+    height: 60px;
+    color: #a4a29d;
+    cursor: pointer;
 }
+.menu-active {
+    color: #FF8868;
+}
+
 
 .result_button_list{
     display: flex;
@@ -116,11 +146,15 @@ body{
 }
 
 .Ad{
-    background-color: blue;
-    width: 100%;
-    margin: 10px 0px;
+    padding: 0px 25%;
+    margin: 3% 0px 0px 0px;
 }
 
+.Ad_box{
+    height: 70px;
+    width: 100%;
+    background-color: antiquewhite;
+}
 .result_list{
     width: 100%;
     background-color: #f8f4ed;
