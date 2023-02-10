@@ -1,21 +1,6 @@
-var g_bSwitch = false;    //페이지 오픈시 물어보기 설정값.[ture:onload시 물어봄.]
-        
-if( g_bSwitch ) window.onload = fnIconCreate;
+// 검색
 
 
-
-function fnIconCreate() {
-    if( confirm("바탕화면에 바로가기 아이콘을 만드시겠습니까?") ) {
-        var WshShell     = new ActiveXObject("WScript.Shell");
-        Desktoptemp      = WshShell.Specialfolders("Desktop");    //path
-
-        var sIconNm      = "오늘의 밥";
-        var sName        = WshShell.CreateShortcut(Desktoptemp + "\\" + sIconNm + ".URL");
-        sName.TargetPath = "http://127.0.0.1:8000/#";
-        sName.Save();
-    console('바로가기') 
-    }
-}
 // 메뉴 고르기
 function checkSelectAll1(select_menu)  {
     var select = document.getElementsByName("selectall1")[0];

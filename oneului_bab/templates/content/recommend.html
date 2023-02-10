@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/recommend.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="recommend_container">
+    <div>
+    <form class="img_upload_box" method="post" enctype="multipart/form-data">
+        <div class="preview">
+            <p class="img_upload_area"></p>
+        </div>
+        <div>
+            <div>
+                <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple>
+                <p class="img_upload_text"><label for="image_uploads">이미지는 선택사항입니다. (PNG, JPG)</label></p>
+            </div>
+            <div class="recommend_name_box">
+                <input class="recommend_name" type="text">
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="recommend_list">
+        <select class="recommend_select" name="main">
+            <option value="">메인분류</option>
+            <option value="밥">밥</option>
+            <option value="빵">빵</option>
+            <option value="면">면</option>
+        </select>
+        <select class="recommend_select" name="soup">
+            <option value="">국물 여부</option>
+            <option value="국물 많이">국물 많이</option>
+            <option value="국물 조금">국물 조금</option>
+            <option value="국물 없음">국물 없음</option>
+        </select>
+        <select class="recommend_select" name="Spicy">
+            <option value="">맵기</option>
+            <option value="매움">매움</option>
+            <option value="보통">보통</option>
+            <option value="순함">순함</option>
+        </select>
+        <select class="recommend_select" name="temperature">
+            <option value="">온도</option>
+            <option value="차가움">차가움</option>
+            <option value="뜨거움">뜨거움</option>
+        </select>
+        <select class="recommend_select" name="weight">
+            <option value="">부담감</option>
+            <option value="Light">가볍게 먹기좋음</option>
+            <option value="Heavy">든든하게 먹기좋음</option>
+        </select>
+        <button class="recommend_select">
+            추천하기
+        </button>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/recommend.js' %}"></script>
+{% endblock javascript %}
