@@ -1,11 +1,22 @@
 // 검색
+$('.result_button').click(function(){
+    alert("결과값을 출력합니다.");
 
+    result_mune = document.getElementsByClassName("menu-active");
+    result_mune_lst = [];
+    for(i=0; i<result_mune.length; i++){
+        a = document.getElementsByClassName("menu-active")[i].id;
+        result_mune_lst[i] = a;
+    }
+    console.log(result_mune.length);
+    console.log(result_mune_lst);
+});
 
 // 메뉴 고르기
-function checkSelectAll1(select_menu)  {
+function checkSelectAll1(select_main)  {
     var select = document.getElementsByName("selectall1")[0];
 
-    select_menu.classList.toggle('menu-active');
+    select_main.classList.toggle('menu-active');
     select.classList.remove('menu-active');
 }
 

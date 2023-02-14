@@ -17,6 +17,6 @@ class FoodList(models.Model):
     temperature = models.CharField('온도',choices=temperature_CHOICES, max_length=50, null=False, blank=True)
     weight = models.CharField('무게',choices=weight_CHOICES, max_length=50, null=False, blank=True)
 
-    # 데이터 표시 형식 변경
+    # 데이터 표시 형식 변경 
     def __str__(self): 
         return '{}'.format(self.name)
