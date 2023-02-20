@@ -1,15 +1,34 @@
 // 검색
 $('.result_button').click(function(){
     alert("결과값을 출력합니다.");
-
+    let fd = new FormData();
+    
     result_mune = document.getElementsByClassName("menu-active");
-    result_mune_lst = [];
     for(i=0; i<result_mune.length; i++){
         a = document.getElementsByClassName("menu-active")[i].id;
-        result_mune_lst[i] = a;
+        fd.append('result_mune_lst',a);
     }
-    console.log(result_mune.length);
-    console.log(result_mune_lst);
+
+    fd.append('result_length',result_mune.length);
+    
+
+    $.ajax({
+        url: "",
+        data: fd,
+        processData: false,
+        contentType: false,
+        method: "POST",
+
+        success: function (data){
+            console.log("성공");
+        },
+        error: function (request, status, error){
+            console.log("에러");
+        },
+        complete: function (){
+            console.log("완료");
+        }
+    });
 });
 
 // 메뉴 고르기

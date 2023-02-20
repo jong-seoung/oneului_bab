@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block script %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
 {% endblock script %}
 
 {% block css %}
@@ -9,7 +15,7 @@
 {% endblock css %}
 
 {% block content %}
-<input type="hidden" name="action" value="{}">
+{% csrf_token %}
 <div class="select_container">
     <div class="select_list">
         <ul class="select_detail_list">
@@ -45,8 +51,8 @@
     <div class="select_list">
         <ul class="select_detail_list">
             <li id="weight_all" class="menu-link menu-active" type='select_menu' name='selectall5' onclick='selectAll5(this)'>아무거나</li>
-            <li id="heavy" class="menu-link" type='select_menu' name='choice5' onclick='checkSelectAll5(this)'>가볍게 먹기 좋음</li>
-            <li id="light" class="menu-link" type='select_menu' name='choice5' onclick='checkSelectAll5(this)'>든든하게 먹고 싶음</li>
+            <li id="light" class="menu-link" type='select_menu' name='choice5' onclick='checkSelectAll5(this)'>가볍게 먹기 좋음</li>
+            <li id="heavy" class="menu-link" type='select_menu' name='choice5' onclick='checkSelectAll5(this)'>든든하게 먹고 싶음</li>
         </ul>
     </div>
 </div>
@@ -58,6 +64,9 @@
         버튼
     </button>
 </div>
+
+
+
 <div class="result_list">
     <ul class="result_menu">
         {% for FoodList in FoodLists %}         <! -- for tag 시작 -->
@@ -65,7 +74,7 @@
             <br>
             <div class="photo_info">사진</div>
             <div class="menu_info">
-                <a href="">{{ FoodList.name }}</a>
+                <a href="">{{ FoodList }}</a>
                 <div class="like_info">
                     <div>저장수</div>
                     <div>아이콘</div>
@@ -78,6 +87,5 @@
 {% endblock content %}
 
 {% block javascript %}
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="{% static 'js/main.js' %}"></script>
 {% endblock javascript %}
