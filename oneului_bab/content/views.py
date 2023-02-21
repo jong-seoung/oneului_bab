@@ -10,17 +10,16 @@ class Index(TemplateView):
 
 class Main(TemplateView):
     template_name = 'content/main.html'
-
-    def post(self,request):
+    
+    def post(self, request):
         if request.method == 'POST':
-            result_length = request.POST.get('result_length',None)
-            result_mune_lst = request.POST.getlist('result_mune_lst')
+            result_mune_lst = request.POST
             a = Q()
             b = Q()
             c = Q()
             d = Q()
             e = Q()
-
+            print(result_mune_lst)
             for i in result_mune_lst:
                 if i == "main_all" or i == "noodle" or i == "rice" or i == "bread":
                     if i == "main_all":
@@ -67,19 +66,17 @@ class Main(TemplateView):
                         e.add(Q(weight="heavy"), e.OR)
                     elif i == "light":
                         e.add(Q(weight="light"), e.OR)
+            FoodList_results = FoodList.objects.filter(a,b,c,d,e)
+            print(a,b,c,d,e)
+            print(FoodList_results)
+            print("1")
+            return render(request,'content/main.html',{'FoodList_results':FoodList_results})
+        else:
+            print("2")
+            return render(request,'content/main.html', {})
 
-            FoodList_result = FoodList.objects.filter(
-                a,
-                b,
-                c,
-                d,
-                e
-            )
-            print(FoodList_result)
-        ctx = {
-            'FoodLists': FoodList_result,
-        }
-        return self.render_to_response(ctx)
+def result(request):
+    return render(request,'content/result.html')
 
 class Recommend(TemplateView):
     template_name = 'content/recommend.html'

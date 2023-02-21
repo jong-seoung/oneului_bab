@@ -1,22 +1,17 @@
 // 검색
 $('.result_button').click(function(){
     alert("결과값을 출력합니다.");
-    let fd = new FormData();
-    
+    var paramList = {}
+
     result_mune = document.getElementsByClassName("menu-active");
     for(i=0; i<result_mune.length; i++){
         a = document.getElementsByClassName("menu-active")[i].id;
-        fd.append('result_mune_lst',a);
+        paramList[a] = a;
     }
-
-    fd.append('result_length',result_mune.length);
-    
 
     $.ajax({
         url: "",
-        data: fd,
-        processData: false,
-        contentType: false,
+        data : paramList,
         method: "POST",
 
         success: function (data){

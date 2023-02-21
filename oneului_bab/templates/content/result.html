@@ -1,0 +1,24 @@
+{% extends 'content/main.html' %}
+{% load static %}
+
+{% block result %}
+    {% if FoodList_results %}
+        {% for FoodList_result in FoodList_results %}
+        <li>
+            <br>
+            <div class="photo_info">사진</div>
+            <div class="menu_info">
+                <a href="">
+                    FoodList_results : {{FoodList_result.name}}
+                </a>
+                <div class="like_info">
+                    <div>저장수</div>
+                    <div>아이콘</div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    {% else %}
+        <h2>결과 값 x</h2>
+    {% endif %}
+{% endblock result %}

@@ -56,6 +56,8 @@
         </ul>
     </div>
 </div>
+
+
 <div class="result_button_list">
     <button class="result_button">
         랜덤 버튼
@@ -66,24 +68,28 @@
 </div>
 
 
-
 <div class="result_list">
     <ul class="result_menu">
-        {% for FoodList in FoodLists %}         <! -- for tag 시작 -->
-        <li>
-            <br>
-            <div class="photo_info">사진</div>
-            <div class="menu_info">
-                <a href="">{{ FoodList }}</a>
-                <div class="like_info">
-                    <div>저장수</div>
-                    <div>아이콘</div>
+        {% block result %}
+            {% for FoodList_result in FoodList_results %}
+            <li>
+                <br>
+                <div class="photo_info">사진</div>
+                <div class="menu_info">
+                    <a href="">
+                        FoodList_results : {{FoodList_result.name}}
+                    </a>
+                    <div class="like_info">
+                        <div>저장수</div>
+                        <div>아이콘</div>
+                    </div>
                 </div>
-            </div>
-        </li>
-        {% endfor %}                          <! -- for tag 종료 -->
+            </li>
+            {% endfor %}
+        {% endblock result %}
     </ul>
 </div>
+
 {% endblock content %}
 
 {% block javascript %}

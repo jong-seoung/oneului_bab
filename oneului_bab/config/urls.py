@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 # from user.views import Login
-from content.views import Main, Index, Recommend
+from content.views import Main, Index, Recommend, result
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,6 +25,7 @@ urlpatterns = [
     path('',Main.as_view()),
     path('recommend/',Recommend.as_view()),
     path('index/',Index.as_view()),
+    path('result/', result, name='result'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
