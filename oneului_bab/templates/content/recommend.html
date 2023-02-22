@@ -1,6 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
 
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
+{% endblock script %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/recommend.css' %}">
 {% endblock css %}
@@ -26,33 +35,35 @@
     <div class="recommend_list">
         <select class="recommend_select" name="main">
             <option value="">메인분류</option>
-            <option value="밥">밥</option>
-            <option value="빵">빵</option>
-            <option value="면">면</option>
+            <option value="rice">밥</option>
+            <option value="bread">빵</option>
+            <option value="noodle">면</option>
         </select>
         <select class="recommend_select" name="soup">
             <option value="">국물 여부</option>
-            <option value="국물 많이">국물 많이</option>
-            <option value="국물 조금">국물 조금</option>
-            <option value="국물 없음">국물 없음</option>
+            <option value="yes">국물 많이</option>
+            <option value="little">국물 조금</option>
+            <option value="no">국물 없음</option>
         </select>
         <select class="recommend_select" name="Spicy">
             <option value="">맵기</option>
-            <option value="매움">매움</option>
-            <option value="보통">보통</option>
-            <option value="순함">순함</option>
+            <option value="spicy">매움</option>
+            <option value="normal">보통</option>
+            <option value="mild">순함</option>
         </select>
         <select class="recommend_select" name="temperature">
             <option value="">온도</option>
-            <option value="차가움">차가움</option>
-            <option value="뜨거움">뜨거움</option>
+            <option value="cool">차가움</option>
+            <option value="warm">따뜻함</option>
+            <option value="hot">뜨거움</option>
         </select>
         <select class="recommend_select" name="weight">
             <option value="">부담감</option>
-            <option value="Light">가볍게 먹기좋음</option>
-            <option value="Heavy">든든하게 먹기좋음</option>
+            <option value="Light">가벼움</option>
+            <option value="heavy">든든함</option>
         </select>
-        <button class="recommend_select">
+        <button class="recommend_button"  onclick="sendData()">
+            {% csrf_token %}
             추천하기
         </button>
     </div>

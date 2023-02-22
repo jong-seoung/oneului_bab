@@ -59,3 +59,41 @@ function returnFileSize(number) {
         return (number/1048576).toFixed(1) + 'MB';
     }
 }
+
+function sendData() {
+    console.log("123") 
+    var name = document.querySelector('.recommend_name').value;
+    var main = document.querySelector('[name=main]').value;
+    var soup = document.querySelector('[name=soup]').value;
+    var spicy = document.querySelector('[name=Spicy]').value;
+    var temperature = document.querySelector('[name=temperature]').value;
+    var weight = document.querySelector('[name=weight]').value; 
+    
+    if (name && main && soup && spicy && temperature && weight) {
+        $.ajax({
+            url: '/recommend/',
+            data: {
+                'name': name,
+                'main': main,
+                'soup': soup,
+                'spicy': spicy,
+                'temperature': temperature,
+                'weight': weight,
+                },
+            method: "POST",
+    
+            success: function (data){
+                location.replace("")
+            },
+            error: function (request, status, error){
+                console.log("에러");
+            },
+            complete: function (){
+                console.log("완료");
+            }
+        });
+    }
+    else if(!name || !main || !soup || !spicy || !temperature || !weight) {
+        alert('모든 옵션을 선택해주세요!');
+    }
+}

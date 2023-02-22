@@ -2,24 +2,38 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from content.models import FoodList
 from rest_framework.response import Response
+from django.shortcuts import redirect
 from django.db.models import Q
 from .models import FoodList
+import json
 
 class Index(TemplateView):
     template_name = 'index.html'
 
 class Main(TemplateView):
     template_name = 'content/main.html'
-    
+
+    def get(self, request):
+        food_list_cookie = request.COOKIES.get('FoodList_results')
+        if food_list_cookie:
+            food_list = json.loads(food_list_cookie)
+            selected_food_list = []
+            for i in food_list:
+                selected_food = i.get('name')
+                selected_food_list.append(selected_food)
+            return render(request, 'content/main.html', {'selected_food_list': selected_food_list})
+        else:
+            return render(request, 'content/main.html')
+
     def post(self, request):
         if request.method == 'POST':
             result_mune_lst = request.POST
+            FoodList_results_list = []
             a = Q()
             b = Q()
             c = Q()
             d = Q()
             e = Q()
-            print(result_mune_lst)
             for i in result_mune_lst:
                 if i == "main_all" or i == "noodle" or i == "rice" or i == "bread":
                     if i == "main_all":
@@ -67,16 +81,24 @@ class Main(TemplateView):
                     elif i == "light":
                         e.add(Q(weight="light"), e.OR)
             FoodList_results = FoodList.objects.filter(a,b,c,d,e)
-            print(a,b,c,d,e)
-            print(FoodList_results)
-            print("1")
-            return render(request,'content/main.html',{'FoodList_results':FoodList_results})
+            FoodList_results_json = json.dumps(list(FoodList_results.values()))
+            response = redirect('main')
+            response.set_cookie('FoodList_results', FoodList_results_json)
+            return response
         else:
-            print("2")
-            return render(request,'content/main.html', {})
+            return render(request, 'content/main.html', {'FoodList_results':FoodList_results})
 
-def result(request):
-    return render(request,'content/result.html')
 
-class Recommend(TemplateView):
-    template_name = 'content/recommend.html'
+def recommend(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        main = request.POST.get('main')
+        soup = request.POST.get('soup')
+        spicy = request.POST.get('spicy')
+        temperature = request.POST.get('temperature')
+        weight = request.POST.get('weight')
+        approved = False
+        print(name,main,soup,spicy,temperature,weight,approved)
+        FoodList.objects.create(name=name, main=main, soup=soup, Spicy=spicy, temperature=temperature, weight=weight, approved=approved)
+        return redirect('recommendname')
+    return render(request, 'content/recommend.html')
