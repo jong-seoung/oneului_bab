@@ -28,7 +28,10 @@ function saveSelectedMenu() {
 
 window.onload = function() {
     localStorage.removeItem('selectedMenu');
+    document.cookie = "FoodList_results=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };
+
+
 
 // 메뉴 항목 클릭 시 호출되는 함수에서 저장 기능을 추가한다.
 $('.result_button').click(function() {
@@ -59,77 +62,16 @@ $('.result_button').click(function() {
     saveSelectedMenu();
     });
 
-// 메뉴 항목 선택 시 호출되는 함수에서 저장 기능을 추가한다.
-function checkSelectAll1(select_main) {
-    var select = document.getElementsByName('selectall1')[0];
-
-    select_main.classList.toggle('menu-active');
-    select.classList.remove('menu-active');
-}
-
-function selectAll1(selectall)  {
-    for(i = 0; i < 3; i++){
-        var select = document.getElementsByName("choice1")[i];
-        select.classList.remove('menu-active');
-    }
-    selectall.classList.add('menu-active');
-}
-
-function checkSelectAll2(select_menu)  {
-    var select = document.getElementsByName("selectall2")[0];
+function checkSelectAll(select_menu, name)  {
+    var select = document.getElementsByName("selectall" + name)[0];
 
     select_menu.classList.toggle('menu-active');
     select.classList.remove('menu-active');
 }
 
-function selectAll2(selectall)  {
-    for(i = 0; i < 3; i++){
-        var select = document.getElementsByName("choice2")[i];
-        select.classList.remove('menu-active');
-    }
-    selectall.classList.add('menu-active');
-}
-
-function checkSelectAll3(select_menu)  {
-    var select = document.getElementsByName("selectall3")[0];
-
-    select_menu.classList.toggle('menu-active');
-    select.classList.remove('menu-active');
-}
-
-function selectAll3(selectall)  {
-    for(i = 0; i < 3; i++){
-        var select = document.getElementsByName("choice3")[i];
-        select.classList.remove('menu-active');
-    }
-    selectall.classList.add('menu-active');
-}
-
-function checkSelectAll4(select_menu)  {
-    var select = document.getElementsByName("selectall4")[0];
-
-    select_menu.classList.toggle('menu-active');
-    select.classList.remove('menu-active');
-}
-
-function selectAll4(selectall)  {
-    for(i = 0; i < 3; i++){
-        var select = document.getElementsByName("choice4")[i];
-        select.classList.remove('menu-active');
-    }
-    selectall.classList.add('menu-active');
-}
-
-function checkSelectAll5(select_menu)  {
-    var select = document.getElementsByName("selectall5")[0];
-
-    select_menu.classList.toggle('menu-active');
-    select.classList.remove('menu-active');
-}
-
-function selectAll5(selectall)  {
-    for(i = 0; i < 2; i++){
-        var select = document.getElementsByName("choice5")[i];
+function selectAll(selectall, name, count)  {
+    for(i = 0; i < count; i++){
+        var select = document.getElementsByName("choice" + name)[i];
         select.classList.remove('menu-active');
     }
     selectall.classList.add('menu-active');

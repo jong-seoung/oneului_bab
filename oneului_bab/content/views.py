@@ -65,11 +65,13 @@ class Main(TemplateView):
                     elif i == "mild":
                         c.add(Q(Spicy="mild"), c.OR)
 
-                elif i == "temperature_all" or i == "cool" or i == "hot":
+                elif i == "temperature_all" or i == "cool" or i == "warm" or i == "hot":
                     if i == "temperature_all":
-                        d.add(Q(temperature="cool")|Q(temperature="hot"), d.AND)
+                        d.add(Q(temperature="cool")|Q(temperature="warm")|Q(temperature="hot"), d.AND)
                     elif i == "cool":
                         d.add(Q(temperature="cool"), d.OR)
+                    elif i == "warm":
+                        d.add(Q(temperature="warm"), d.OR)
                     elif i == "hot":
                         d.add(Q(temperature="hot"), d.OR)
 

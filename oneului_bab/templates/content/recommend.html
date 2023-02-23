@@ -59,10 +59,10 @@
         </select>
         <select class="recommend_select" name="weight">
             <option value="">부담감</option>
-            <option value="Light">가벼움</option>
+            <option value="light">가벼움</option>
             <option value="heavy">든든함</option>
         </select>
-        <button class="recommend_button"  onclick="sendData()">
+        <button class="recommend_select" onclick="sendData()">
             {% csrf_token %}
             추천하기
         </button>

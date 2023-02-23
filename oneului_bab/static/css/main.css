@@ -12,7 +12,9 @@
     justify-content: start;
     border-top: solid 2px #a4a29d;
     /* border-bottom: solid 2px #D4D0CB; */
-    margin-bottom: 0px;
+    margin-bottom: 00px;
+    padding: 0px;
+    text-align: center;
 }
 
 
@@ -54,6 +56,7 @@
 .result_menu li{
     display: flex;
     flex-direction: row;
+    margin-bottom: 10px;
 }
 
 .photo_info{
