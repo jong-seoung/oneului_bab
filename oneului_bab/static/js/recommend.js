@@ -61,7 +61,6 @@ function returnFileSize(number) {
 }
 
 function sendData() {
-    console.log("123") 
     var name = document.querySelector('.recommend_name').value;
     var main = document.querySelector('[name=main]').value;
     var soup = document.querySelector('[name=soup]').value;

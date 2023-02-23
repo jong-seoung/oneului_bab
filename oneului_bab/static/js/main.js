@@ -1,5 +1,10 @@
 // 이전에 저장한 선택된 항목이 있다면, 그 값을 불러와서 초기화한다.
 if (localStorage.selectedMenu) {
+    var allElements = document.getElementsByTagName("*");
+    for (var i = 0; i < allElements.length; i++) {
+        var elem = allElements[i];
+        elem.classList.remove('menu-active');
+    }
     var selectedIds = JSON.parse(localStorage.selectedMenu);
     for (var id in selectedIds) {
         var elem = document.getElementById(id);
@@ -13,6 +18,7 @@ if (localStorage.selectedMenu) {
 function saveSelectedMenu() {
     var selectedIds = {};
     var selectedMenus = document.getElementsByClassName('menu-active');
+
     for (var i = 0; i < selectedMenus.length; i++) {
         var id = selectedMenus[i].id;
         selectedIds[id] = id;
@@ -59,9 +65,6 @@ function checkSelectAll1(select_main) {
 
     select_main.classList.toggle('menu-active');
     select.classList.remove('menu-active');
-
-    // 선택한 메뉴 항목을 저장한다.
-    saveSelectedMenu();
 }
 
 function selectAll1(selectall)  {
@@ -70,7 +73,6 @@ function selectAll1(selectall)  {
         select.classList.remove('menu-active');
     }
     selectall.classList.add('menu-active');
-    saveSelectedMenu();
 }
 
 function checkSelectAll2(select_menu)  {
@@ -78,7 +80,6 @@ function checkSelectAll2(select_menu)  {
 
     select_menu.classList.toggle('menu-active');
     select.classList.remove('menu-active');
-    saveSelectedMenu();
 }
 
 function selectAll2(selectall)  {
@@ -87,7 +88,6 @@ function selectAll2(selectall)  {
         select.classList.remove('menu-active');
     }
     selectall.classList.add('menu-active');
-    saveSelectedMenu();
 }
 
 function checkSelectAll3(select_menu)  {
@@ -95,7 +95,6 @@ function checkSelectAll3(select_menu)  {
 
     select_menu.classList.toggle('menu-active');
     select.classList.remove('menu-active');
-    saveSelectedMenu();
 }
 
 function selectAll3(selectall)  {
@@ -104,7 +103,6 @@ function selectAll3(selectall)  {
         select.classList.remove('menu-active');
     }
     selectall.classList.add('menu-active');
-    saveSelectedMenu();
 }
 
 function checkSelectAll4(select_menu)  {
@@ -112,7 +110,6 @@ function checkSelectAll4(select_menu)  {
 
     select_menu.classList.toggle('menu-active');
     select.classList.remove('menu-active');
-    saveSelectedMenu();
 }
 
 function selectAll4(selectall)  {
@@ -121,7 +118,6 @@ function selectAll4(selectall)  {
         select.classList.remove('menu-active');
     }
     selectall.classList.add('menu-active');
-    saveSelectedMenu();
 }
 
 function checkSelectAll5(select_menu)  {
@@ -129,7 +125,6 @@ function checkSelectAll5(select_menu)  {
 
     select_menu.classList.toggle('menu-active');
     select.classList.remove('menu-active');
-    saveSelectedMenu();
 }
 
 function selectAll5(selectall)  {
@@ -138,5 +133,4 @@ function selectAll5(selectall)  {
         select.classList.remove('menu-active');
     }
     selectall.classList.add('menu-active');
-    saveSelectedMenu();
 }
