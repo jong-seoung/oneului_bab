@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import FoodList
+from .models import FoodList, Question
+
+class QuestionAdmin(admin.ModelAdmin):
+    ordering = ['-created_at']  # Answer 모델의 created_at 필드를 기준으로 정렬
+    list_display = ('title', 'created_at', 'answer')  # 리스트에 표시할 필드 설정
+
+admin.site.register(Question, QuestionAdmin)
 
 class FoodListAdmin(admin.ModelAdmin):
     list_display = ['name', 'main', 'soup', 'Spicy', 'temperature', 'weight', 'approved']
@@ -20,3 +26,4 @@ class FoodListAdmin(admin.ModelAdmin):
     ordering = ['-approved'] # 기본 정렬 순서
 
 admin.site.register(FoodList, FoodListAdmin)
+

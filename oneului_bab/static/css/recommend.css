@@ -17,10 +17,14 @@
     text-align: center;
     background-color: #f5efe8;
     border: solid 2px #e0dbd4;
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
 }
 
 .recommend_name:focus{  
     outline: none;
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
 }
 
 .recommend_list{
@@ -38,6 +42,8 @@
     text-align: center  ;
     background-color: #f5efe8;
     border: solid 2px #e0dbd4;
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
 }
 
 .img_upload_box{

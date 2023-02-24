@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
+{% endblock script %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/question.css' %}">
+{% endblock css %}
+
+{% block content %}
+<form method="POST" action="{% url 'question' %}" onsubmit="submitForm(event)">
+    {% csrf_token %}
+    <div class="question">
+        <input type="text" name="title" value="문의 제목"></input>
+        <textarea id="textarea" name="content" rows="4"></textarea>
+        <button  type="submit" >문의하기</button>
+    </div>
+</form>
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/question.js' %}"></script>
+{% endblock javascript %}

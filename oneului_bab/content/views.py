@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from content.models import FoodList
-from rest_framework.response import Response
 from django.shortcuts import redirect
 from django.db.models import Q
 from .models import FoodList
 import json
+from django.shortcuts import render, redirect
+from .models import Question
 
 class Index(TemplateView):
     template_name = 'index.html'
@@ -104,3 +105,16 @@ def recommend(request):
         FoodList.objects.create(name=name, main=main, soup=soup, Spicy=spicy, temperature=temperature, weight=weight, approved=approved)
         return redirect('recommendname')
     return render(request, 'content/recommend.html')
+
+class Question_Answer(TemplateView):
+    template_name = 'content/question.html'
+
+    def post(self, request):
+        if request.method == 'POST':
+            title = request.POST['title']
+            content = request.POST['content']
+            Question.objects.create(title=title, content=content)
+            return redirect('question')
+        else:
+            return render(request, 'content/question.html')
+        

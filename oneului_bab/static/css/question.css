@@ -1,0 +1,54 @@
+.question {
+    background-color: #f7f4f0;
+    padding: 10px;
+    border-radius: 5px;
+    height: 100%;
+    margin-top: 20px;
+}
+
+.question input {
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    border: none;
+    margin: 0;
+}
+
+.question input:focus {
+    outline: none;
+}
+
+.question textarea {
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
+    margin: 5px 0px;
+    width: 100%;
+    resize: none;
+    min-height: 32px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.question textarea:focus {
+    outline: none;
+}
+
+.question button {
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+.question button:hover {
+    background-color: #f5efe8;
+    box-shadow: 2px 2px 1px 1px #D4D0CB;
+}

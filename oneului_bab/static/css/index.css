@@ -111,15 +111,26 @@ div{
     background-color: #ECE8E2;
     display: flex;
     flex-direction: column;
-    padding: 0px 25%;
+    padding: 0px 30%;
 }
 
 .Ad{
-    padding: 0px 25%;
+    padding: 0px 30%;
     margin: 3% 0px 0px 0px;
 }
 
 .Ad_box{
+    height: 70px;
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+.Ad2{
+    padding: 0px 30%;
+    margin: 20px 0px 0px 0px;
+}
+
+.Ad2_box{
     height: 70px;
     width: 100%;
     background-color: antiquewhite;

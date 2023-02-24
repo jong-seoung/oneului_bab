@@ -18,3 +18,12 @@ class FoodList(models.Model):
     # 데이터 표시 형식 변경 
     def __str__(self): 
         return '{}'.format(self.name)
+
+class Question(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    answer = models.TextField(default="NULL")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
