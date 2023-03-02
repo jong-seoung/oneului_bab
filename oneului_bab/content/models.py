@@ -7,6 +7,7 @@ class FoodList(models.Model):
     TEMPERATURE_CHOICES = (("cool", "차갑게"), ("warm", "적당히 따뜻하게"), ("hot", "뜨거울 정도로"))
     WEIGHT_CHOICES = (("heavy", "무거움"), ("light", "가벼움"))
 
+    image = models.TextField(default='food_basic_img')
     name = models.CharField('이름', max_length=50)
     main = models.CharField('메인분류', choices=MAIN_CHOICES, max_length=10)
     soup = models.CharField('국물', choices=SOUP_CHOICES, max_length=10)

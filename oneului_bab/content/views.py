@@ -108,7 +108,14 @@ def recommend(request):
 
 class Question_Answer(TemplateView):
     template_name = 'content/question.html'
+    queryset = Question.objects.all()
 
+    def get(self, request, *args, **kwargs):
+        ctx = {
+            'Questions': self.queryset		
+        }
+        return self.render_to_response(ctx)
+    
     def post(self, request):
         if request.method == 'POST':
             title = request.POST['title']

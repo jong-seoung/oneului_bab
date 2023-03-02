@@ -27,6 +27,7 @@ function saveSelectedMenu() {
 }
 
 window.onload = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     localStorage.removeItem('selectedMenu');
     document.cookie = "FoodList_results=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };

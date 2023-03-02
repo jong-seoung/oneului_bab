@@ -27,3 +27,23 @@ function submitForm(event) {
         alert(error.message);
     });
 }
+
+const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+accordionHeaders.forEach(header => {
+header.addEventListener('click', event => {
+    const currentHeader = event.currentTarget;
+    const accordionItem = currentHeader.parentElement;
+    const accordionContent = accordionItem.querySelector('.accordion-content');
+    const toggleBtn = currentHeader.querySelector('.toggle-btn');
+    
+    accordionItem.classList.toggle('active');
+    toggleBtn.classList.toggle('active');
+    
+    if (accordionItem.classList.contains('active')) {
+    accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+    } else {
+    accordionContent.style.maxHeight = 0;
+    }
+});
+});

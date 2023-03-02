@@ -22,52 +22,77 @@
         <link rel="stylesheet" href="{% static 'css/index.css' %}">
     </head>
     <body>
-        {% block nav %}
-        <nav class="navbar">
-            <div class="navbar_top">
-                <div class="navbar_top_container">
-                    <div class="navbar_detail">
-                        <div class="navbar_log_description">오늘의 밥</div>
+        <div id="warp">
+            <section>
+                {% block nav %}
+                <nav class="navbar">
+                    <div class="navbar_top">
+                        <div class="navbar_top_container">
+                            <div class="navbar_detail">
+                                <div class="navbar_log_description">오늘의 밥</div>
+                            </div>
+                            <div class="navbar_detail">
+                                <div class="navbar_save_text">저장</div>
+                                <div class="navbar_login_text">로그인</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="navbar_detail">
-                        <div class="navbar_save_text">저장</div>
-                        <div class="navbar_login_text">로그인</div>
+                    <div class="navbar_bottom">
+                        <div class="navbar_bottom_container">
+                            <div class="navbar_detail">
+                                <div class="navbar_log_name">O-Bab</div>
+                            </div>
+                            <div class="navbar_detail_col">
+                                <div class="navbar_detail_col_text">앱 다운로드</div>
+                            </div>
+                        </div>
                     </div>
+                </nav>
+                <div class="navbar_category">
+                    <div class="category_text"><a href="/">Home</a></div>
+                    <div class="category_text"><a href="/recommend">메뉴 추천 하기</a></div>
+                    <div class="category_text"><a href="/question">문의하기</a></div>
                 </div>
-            </div>
-            <div class="navbar_bottom">
-                <div class="navbar_bottom_container">
-                    <div class="navbar_detail">
-                        <div class="navbar_log_name">O-Bab</div>
-                    </div>
-                    <div class="navbar_detail_col">
-                        <div class="navbar_detail_col_text">앱 다운로드</div>
-                    </div>
+                {% endblock nav %}
+                
+                {% block ad1 %}
+                <div class="Ad">
+                    <div class="Ad_box">광고</div>
                 </div>
-            </div>
-        </nav>
-        <div class="navbar_category">
-            <div class="category_text"><a href="/">Home</a></div>
-            <div class="category_text"><a href="/recommend">메뉴 추천 하기</a></div>
-            <div class="category_text"><a href="/question">문의하기</a></div>
-        </div>
-        {% endblock nav %}
-        
-        <div class="Ad">
-            <div class="Ad_box">광고</div>
-        </div>
+                {% endblock ad1 %}
 
-        <div class="main_container">
-        {% block content %}
-        {% endblock content %}
+                <div class="main_container">
+                {% block content %}
+                {% endblock content %}
+                </div>
+
+                {% block ad2 %}
+                <div class="Ad2">
+                    <div class="Ad2_box">광고</div>
+                </div>
+                {% endblock ad2 %}
+
+                <div class="question_list">
+                {% block question %}
+                {% endblock question %}
+                </div>
+            </section>    
+            <footer>
+                <div class="footer_container">
+                    <nav>
+                        <a href="https://jongseoung.tistory.com/" target="_blank">Blog</a>|
+                        <a href="https://github.com/jong-seoung" target="_blank">Git hub</a>
+                    </nav>
+                    <p>
+                        <span>author : BEAK JONG SEOUNG</span>
+                        <span>email : jjong015189@gmail.com</span>
+                        <span>&copy; 2023 BEAK JOUNG SEOUNG. All rights reserved.</span>
+                    </p>
+                </div>
+            </footer>
         </div>
-
-        <div class="Ad2">
-            <div class="Ad2_box">광고</div>
-        </div>
-
-
         <!-- 페이지 별 자바스크립트 공간 -->
+        <script src="{% static 'js/index.js' %}"></script>
         {% block javascript %}
         {% endblock javascript %}
     </body>

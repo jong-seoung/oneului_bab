@@ -52,3 +52,38 @@
     background-color: #f5efe8;
     box-shadow: 2px 2px 1px 1px #D4D0CB;
 }
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-btn {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
+.toggle-btn:before {
+    content: "+";
+    font-size: 10px;
+    color: #fff;
+    line-height: 20px;
+}
+
+.toggle-btn.active:before {
+    content: "-";
+}
+
+.accordion-content {
+    display: none;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.accordion-item.active .accordion-content {
+    display: block;
+}
