@@ -18,26 +18,28 @@
 <form method="POST" action="{% url 'question' %}" onsubmit="submitForm(event)">
     {% csrf_token %}
     <div class="question">
-        <input type="text" name="title" value="문의 제목"></input>
+        <input type="text" name="title" value=""></input>
         <textarea id="textarea" name="content" rows="4"></textarea>
-        <button  type="submit" >문의하기</button>
+        <button  type="submit">문의하기</button>
     </div>
 </form>
 {% endblock content %}
 
 {% block question %}
 <div class="accordion">
+    {% for Question in Questions %}
     <div class="accordion-item">
-        {% for Question in Questions %}
+        
         <div class="accordion-header">
             <h3>{{ Question.title }}</h3>
             <button class="toggle-btn"></button>
         </div>
         <div class="accordion-content">
-            <p>{{ Question.content }}</p>
+            <pre class="question_content">{{ Question.content }}</pre>
+            <pre class="question_content">{{ Question.answer }}</pre>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
 {% endblock question %}
 

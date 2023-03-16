@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from content.models import FoodList
 from django.shortcuts import redirect
@@ -7,6 +7,11 @@ from .models import FoodList
 import json
 from django.shortcuts import render, redirect
 from .models import Question
+import os
+from uuid import uuid4
+from config.settings import MEDIA_ROOT
+import random
+
 
 class Index(TemplateView):
     template_name = 'index.html'
@@ -15,13 +20,13 @@ class Main(TemplateView):
     template_name = 'content/main.html'
 
     def get(self, request):
-        food_list_cookie = request.COOKIES.get('FoodList_results')
+        food_list_cookie = request.COOKIES.get('random_food_list')
         if food_list_cookie:
             food_list = json.loads(food_list_cookie)
             selected_food_list = []
             for i in food_list:
-                selected_food = i.get('name')
-                selected_food_list.append(selected_food)
+                selected_food_list.append({'name':i.get('name'),'image':i.get('image')})
+            random.shuffle(selected_food_list)
             return render(request, 'content/main.html', {'selected_food_list': selected_food_list})
         else:
             return render(request, 'content/main.html')
@@ -29,7 +34,6 @@ class Main(TemplateView):
     def post(self, request):
         if request.method == 'POST':
             result_mune_lst = request.POST
-            FoodList_results_list = []
             a = Q()
             b = Q()
             c = Q()
@@ -83,13 +87,23 @@ class Main(TemplateView):
                         e.add(Q(weight="heavy"), e.OR)
                     elif i == "light":
                         e.add(Q(weight="light"), e.OR)
-            FoodList_results = FoodList.objects.filter(a,b,c,d,e)
-            FoodList_results_json = json.dumps(list(FoodList_results.values()))
+
+            if result_mune_lst["clicked_button_id"] == "random_button":
+                FoodList_results = list(FoodList.objects.filter(a,b,c,d,e).values())
+                if len(FoodList_results) > 3:
+                    random_food_list = random.sample(FoodList_results, 3)
+                elif len(FoodList_results) < 3:
+                    random_food_list = random.sample(FoodList_results, len(FoodList_results))
+                random_food_list_json = json.dumps([food for food in random_food_list][:3])
+            else:
+                random_food_list = list(FoodList.objects.filter(a,b,c,d,e).values())
+                random_food_list_json = json.dumps(random_food_list)
+
             response = redirect('main')
-            response.set_cookie('FoodList_results', FoodList_results_json)
+            response.set_cookie('random_food_list', random_food_list_json)
             return response
         else:
-            return render(request, 'content/main.html', {'FoodList_results':FoodList_results})
+            return render(request, 'content/main.html', {'random_food_list':random_food_list})
 
 
 def recommend(request):
@@ -101,8 +115,22 @@ def recommend(request):
         temperature = request.POST.get('temperature')
         weight = request.POST.get('weight')
         approved = False
-        print(name,main,soup,spicy,temperature,weight,approved)
-        FoodList.objects.create(name=name, main=main, soup=soup, Spicy=spicy, temperature=temperature, weight=weight, approved=approved)
+        file = request.FILES.get('image')
+
+        if file:
+            uuid_name = uuid4().hex
+            save_path = os.path.join(MEDIA_ROOT, uuid_name)
+
+            # 파일을 읽어서 파일을 만들기
+            with open(save_path, 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+
+            image = uuid_name
+        else:
+            image = 'food_basic_img.jpg'
+        
+        FoodList.objects.create(name=name, main=main, soup=soup, Spicy=spicy, temperature=temperature, weight=weight, image=image, approved=approved)
         return redirect('recommendname')
     return render(request, 'content/recommend.html')
 
@@ -112,7 +140,7 @@ class Question_Answer(TemplateView):
 
     def get(self, request, *args, **kwargs):
         ctx = {
-            'Questions': self.queryset		
+            'Questions': self.queryset[::-1]
         }
         return self.render_to_response(ctx)
     

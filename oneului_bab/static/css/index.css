@@ -72,6 +72,10 @@ div{
     line-height: 200%;
 }
 
+/* .navbar_log_description:hover{
+    cursor: pointer;
+} */
+
 .navbar_save_text{
     margin-right: 10px;
     font-size: 17px;

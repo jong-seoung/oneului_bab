@@ -37,11 +37,16 @@
 .result_button_list{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
     margin-top: 10px;
 }
 
 .result_button{
-    width: 50%;
+    width: 49%;
+    height: 100%;
+    background-color: #dfdcd6;
+    border: solid 2px #D4D0CB;
 }
 
 .result_list{
@@ -64,7 +69,6 @@
 .photo_info{
     width: 60px;
     height: 60px;
-    background-color: black;
 }
 
 .menu_info{

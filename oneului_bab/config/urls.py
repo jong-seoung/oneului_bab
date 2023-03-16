@@ -27,5 +27,5 @@ urlpatterns = [
     path('question/', Question_Answer.as_view(),name="question"),
     path('index/',Index.as_view(),name="index")
 ]
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

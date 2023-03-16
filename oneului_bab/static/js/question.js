@@ -22,6 +22,7 @@ function submitForm(event) {
         } else {
             throw new Error('문의 등록 중 오류가 발생하였습니다.');
         }
+        window.location.reload(true);
     })
     .catch(error => {
         alert(error.message);
@@ -46,4 +47,15 @@ header.addEventListener('click', event => {
     accordionContent.style.maxHeight = 0;
     }
 });
+});
+
+const toggleBtns = document.querySelectorAll(".toggle-btn");
+
+// 각각의 .toggle-btn 요소에 대해 click 이벤트 리스너를 등록합니다.
+toggleBtns.forEach((toggleBtn) => {
+    toggleBtn.addEventListener("click", () => {
+        const accordionHeader = toggleBtn.parentElement;
+        
+        accordionHeader.classList.toggle("active");
+    });
 });

@@ -7,8 +7,8 @@ class FoodList(models.Model):
     TEMPERATURE_CHOICES = (("cool", "차갑게"), ("warm", "적당히 따뜻하게"), ("hot", "뜨거울 정도로"))
     WEIGHT_CHOICES = (("heavy", "무거움"), ("light", "가벼움"))
 
-    image = models.TextField(default='food_basic_img')
     name = models.CharField('이름', max_length=50)
+    image = models.TextField(default='food_basic_img')
     main = models.CharField('메인분류', choices=MAIN_CHOICES, max_length=10)
     soup = models.CharField('국물', choices=SOUP_CHOICES, max_length=10)
     Spicy = models.CharField('맵기', choices=SPICY_CHOICES, max_length=10)
@@ -23,8 +23,10 @@ class FoodList(models.Model):
 class Question(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    answer = models.TextField(default="NULL")
+    answer = models.TextField(default="아직 답변이 없습니다. 빠른 시일내에 답변해 드리겠습니다.")
     created_at = models.DateTimeField(auto_now_add=True)
+
+
 
     def __str__(self):
         return self.title

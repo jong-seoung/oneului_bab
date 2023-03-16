@@ -27,21 +27,21 @@ function saveSelectedMenu() {
 }
 
 window.onload = function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: window.scrollY, behavior: 'smooth' });
     localStorage.removeItem('selectedMenu');
-    document.cookie = "FoodList_results=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "random_food_list=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };
-
 
 
 // 메뉴 항목 클릭 시 호출되는 함수에서 저장 기능을 추가한다.
 $('.result_button').click(function() {
     var paramList = {};
-    var result_mune = document.getElementsByClassName('menu-active');
-    for (var i = 0; i < result_mune.length; i++) {
-        var a = result_mune[i].id;
+    var result_menu = document.getElementsByClassName('menu-active');
+    for (var i = 0; i < result_menu.length; i++) {
+        var a = result_menu[i].id;
         paramList[a] = a;
     }
+    paramList["clicked_button_id"] = this.id;
 
     $.ajax({
         url: '',
@@ -49,7 +49,7 @@ $('.result_button').click(function() {
         method: 'POST',
 
         success: function(data) {
-        location.replace('');
+            window.location.reload(true);
         },
         error: function(request, status, error) {
         console.log('에러');
@@ -61,7 +61,7 @@ $('.result_button').click(function() {
 
     // 선택한 메뉴 항목을 저장한다.
     saveSelectedMenu();
-    });
+});
 
 function checkSelectAll(select_menu, name)  {
     var select = document.getElementsByName("selectall" + name)[0];

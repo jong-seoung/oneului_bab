@@ -67,22 +67,26 @@ function sendData() {
     var spicy = document.querySelector('[name=Spicy]').value;
     var temperature = document.querySelector('[name=temperature]').value;
     var weight = document.querySelector('[name=weight]').value; 
-    
+    let image = document.querySelector('#image_uploads').files[0];
+
     if (name && main && soup && spicy && temperature && weight) {
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('main', main);
+        formData.append('soup', soup);
+        formData.append('spicy', spicy);
+        formData.append('temperature', temperature);
+        formData.append('weight', weight);
+        formData.append('image', image);
+
         $.ajax({
             url: '/recommend/',
-            data: {
-                'name': name,
-                'main': main,
-                'soup': soup,
-                'spicy': spicy,
-                'temperature': temperature,
-                'weight': weight,
-                },
+            data: formData,
             method: "POST",
-    
+            processData: false,
+            contentType: false,
             success: function (data){
-                location.replace("")
+                location.replace("");
             },
             error: function (request, status, error){
                 console.log("에러");

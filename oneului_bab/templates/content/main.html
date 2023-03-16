@@ -60,25 +60,25 @@
 
 
 <div class="result_button_list">
-    <button class="result_button">
+    <button class="result_button" id="random_button">
         랜덤 버튼
     </button>
-    <button class="result_button">
+    <button class="result_button" id="normal_button">
         버튼
     </button>
 </div>
 
-{% if 'FoodList_results' in request.COOKIES %}
+{% if 'random_food_list' in request.COOKIES %}
 <div class="result_list">
     <ul class="result_menu">
         {% if selected_food_list %}
             {% for selected_food_lst in selected_food_list %}
                 <li>
                     <br>
-                    <div class="photo_info">사진</div>
+                    <img class="photo_info" src="media/{{ selected_food_lst.image }}" alt="">
                     <div class="menu_info">
                         <a href="">
-                            {{ selected_food_lst }}
+                            {{ selected_food_lst.name }}
                         </a>
                         <div class="like_info">
                             <div>저장수</div>
