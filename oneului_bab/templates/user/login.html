@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
+{% endblock script %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="login_container">
+    <h2>오늘의 밥</h2>
+    <h3>로그인</h3>
+    <form class="login_form" method="post">
+        {% csrf_token %}
+        <div class="login_box">
+            <div class="input_login">
+                <div class="input_login_id_box">
+                    {{ form.username }}
+                </div>
+                <div class="input_login_password_box">
+                    {{ form.password }}
+                </div>
+            </div>
+        </div>
+        <div class="login_button_box">
+        <button class="login_button" type="submit">Login</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block ad2 %}
+{% endblock ad2 %}

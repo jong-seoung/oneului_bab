@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 # from user.views import Login
 from content.views import Main, Index, recommend, Question_Answer
+from user.views import Login
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,7 +26,9 @@ urlpatterns = [
     path('',Main.as_view(),name="main"),
     path('recommend/',recommend,name="recommendname"),
     path('question/', Question_Answer.as_view(),name="question"),
-    path('index/',Index.as_view(),name="index")
+    path('index/',Index.as_view(),name="index"),
+
+    path('login/',Login.as_view(),name="login"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
