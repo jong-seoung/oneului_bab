@@ -11,7 +11,7 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, **extra_fields):
         if not email:
-            raise ValueError('The given email must be set')
+            raise ValueError('이메일을 설정해야 합니다')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -36,8 +36,8 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(verbose_name=_('email address'), unique=True, blank=False)
-    name = models.CharField(_('name'), max_length=30, blank=True)
+    email = models.EmailField(_('email address'), unique=True, blank=False)
+    name = models.CharField(_('name'), max_length=30, blank=False)
     is_staff = models.BooleanField(_('staff status'), default=False, help_text=_('Designates whether the user can log into this admin site.'),)
     is_active = models.BooleanField(_('active'), default=False, help_text=_('Designates whether this user should be treated as active. ' 'Unselect this instead of deleting accounts.'),)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)

@@ -14,12 +14,14 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock css %}
 
-{% block content %}
+{% block ad1 %}
+{% endblock ad1 %}
+
+{% block login %}
+
 <div class="login_container">
-    <h2>오늘의 밥</h2>
-    <h3>로그인</h3>
     <form class="login_form" method="post">
-        {% csrf_token %}
+        <h3>로그인</h3>
         <div class="login_box">
             <div class="input_login">
                 <div class="input_login_id_box">
@@ -29,13 +31,24 @@
                     {{ form.password }}
                 </div>
             </div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
         <div class="login_button_box">
+        {% csrf_token %}
         <button class="login_button" type="submit">Login</button>
+        </div>
+        <div class="social_login_box">
+            <button class="social_login_button_naver">네이버로 로그인</button>
+            <button class="social_login_button_kakao">카카오로 로그인</button>            
+            <button class="social_login_button_google">구글로 로그인</button>
         </div>
     </form>
 </div>
-{% endblock content %}
+{% endblock login %}
 
-{% block ad2 %}
-{% endblock ad2 %}

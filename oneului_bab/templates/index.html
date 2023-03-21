@@ -2,6 +2,7 @@
 {% load static %}
 <html lang="ko">
     <head>
+        <link rel="icon" href="{% static 'img/log32.jpg' %}" />
         <!-- 페이지 별 타이틀 공간 -->
         {% block title %}
         <title>오늘의 밥</title>
@@ -33,7 +34,11 @@
                             </div>
                             <div class="navbar_detail">
                                 <div class="navbar_save_text">저장</div>
-                                <div class="navbar_login_text"><a href="/login">로그인</a></div>
+                                {% if user.is_authenticated %}
+                                    <div class="navbar_login_text"><a href="/logout">로그아웃</a></div>
+                                {% else %}
+                                    <div class="navbar_login_text"><a href="/login">로그인</a></div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -65,6 +70,9 @@
                 {% block content %}
                 {% endblock content %}
                 </div>
+
+                {% block login %}
+                {% endblock login %}
 
                 {% block ad2 %}
                 <div class="Ad2">
