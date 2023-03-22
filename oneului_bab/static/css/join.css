@@ -1,0 +1,51 @@
+.findaccount_container{
+    background-color: #ECE8E2;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 32%;
+}
+
+.findaccount_form{
+    margin-top: 20px;
+    width: 100%;
+    background-color: #f7f4f0;
+    border: solid 2px #D4D0CB;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 10%;
+    padding: 5% 17% 3% 17%;
+}
+
+.join_info{
+    text-align: left;
+    margin-top: 10px;
+}
+
+.join_info_input{
+    width: 100%;
+    height: 40px;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.join_info_birthdate{
+    width: 30%;
+}
+
+#emailcode{
+    width: 75%;
+}
+
+#emailsendbutton{
+    width: 20%;
+}
+
+#emailsend_box{
+    margin: 20px 0px;
+}

@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
+{% endblock script %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/join.css' %}">
+{% endblock css %}
+
+{% block ad1 %}
+{% endblock ad1 %}
+
+{% block account_info %}
+<div class="findaccount_container">
+    <form class="findaccount_form" method="POST">
+        <h3>회원가입</h3>
+        <div>
+            <div class="join_info">이메일</div>
+            <input class="join_info_input" type="email" name="email" required placeholder="{{email}}">
+            <div class="join_info">비밀번호</div>
+            <input class="join_info_input" type="password" name="password" required>
+            <div class="join_info">비밀번호 재확인</div>
+            <input class="join_info_input" type="password" name="confirm_password" required>
+            <div class="join_info">이름</div>
+            <input class="join_info_input" type="text" name="name" required  placeholder="{{name}}">
+            <div class="join_info">닉네임</div>
+            <input class="join_info_input" type="text" name="nickname" required  placeholder="{{nickname}}">
+            <div class="join_info">생년월일</div>
+            <div class="join_info_input">
+                <input class="join_info_birthdate" type="text" name="birthdate_year" required  placeholder="{{birthdate_year}}">
+                <select class="join_info_birthdate" name="birthdate_month" required>
+                    <option value="" selected disabled hidden>월</option>
+                    <option value="1">1월</option>
+                    <option value="2">2월</option>
+                    <option value="3">3월</option>
+                    <option value="4">4월</option>
+                    <option value="5">5월</option>
+                    <option value="6">6월</option>
+                    <option value="7">7월</option>
+                    <option value="8">8월</option>
+                    <option value="9">9월</option>
+                    <option value="10">10월</option>
+                    <option value="11">11월</option>
+                    <option value="12">12월</option>
+                </select>
+                <input class="join_info_birthdate" type="text" name="birthdate_days" required  placeholder="{{birthdate_days}}">
+            </div>
+            <div class="join_info_input" id="emailsend_box">
+                <input class="join_info_input" id="emailcode" type="text" name="emailcode" placeholder="인증번호를 입력하세요">
+                <button class="join_info_input" id="emailsendbutton" type="submit">이메일 인증하기</button>
+            </div>
+        </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% csrf_token %}
+        <button class="join_info_input" type="submit">가입하기</button>
+    </form>
+</div>
+{% endblock account_info %}

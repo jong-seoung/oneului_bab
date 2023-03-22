@@ -17,8 +17,7 @@
 {% block ad1 %}
 {% endblock ad1 %}
 
-{% block login %}
-
+{% block account_info %}
 <div class="login_container">
     <form class="login_form" method="post">
         <h3>로그인</h3>
@@ -49,6 +48,13 @@
             <button class="social_login_button_google">구글로 로그인</button>
         </div>
     </form>
+    <div class="info_find_warp">
+        <a class="info_find" href="/findid">아이디 찾기</a>
+        <div class="info_find">|</div>
+        <a class="info_find" href="/findpassword">비밀번호 찾기</a>
+        <div class="info_find">|</div>
+        <a class="info_find" href="/join">회원가입</a>
+    </div>
 </div>
-{% endblock login %}
+{% endblock account_info %}
 

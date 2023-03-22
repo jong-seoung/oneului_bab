@@ -17,7 +17,7 @@
     text-align: center;
     width: 100%;
     margin-top: 10%;
-    padding: 5% 17%;
+    padding: 5% 17% 3% 17%;
 }
 
 .login_form h3{
@@ -128,4 +128,16 @@
 
 .messages li {
     white-space: pre-wrap;
+}
+
+.info_find_warp{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 10%;
+    margin-top: 8px;
+}
+
+.info_find{
+    margin: 0px 2%;
 }

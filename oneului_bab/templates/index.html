@@ -35,6 +35,7 @@
                             <div class="navbar_detail">
                                 <div class="navbar_save_text">저장</div>
                                 {% if user.is_authenticated %}
+                                    <div class="navbar_login_text"><a href="/">마이페이지</a></div>
                                     <div class="navbar_login_text"><a href="/logout">로그아웃</a></div>
                                 {% else %}
                                     <div class="navbar_login_text"><a href="/login">로그인</a></div>
@@ -71,8 +72,8 @@
                 {% endblock content %}
                 </div>
 
-                {% block login %}
-                {% endblock login %}
+                {% block account_info %}
+                {% endblock account_info %}
 
                 {% block ad2 %}
                 <div class="Ad2">
