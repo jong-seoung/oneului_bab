@@ -6,7 +6,7 @@ from django.views import View
 from django.contrib import messages
 from user.forms import CustomLoginForm
 from .models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, HttpResponseRedirect
 import smtplib
 from email.mime.text import MIMEText
 
@@ -29,25 +29,22 @@ class LoginView(LoginView):           # 로그인
         return super().form_invalid(form)
     
     def form_valid(self, form):
-        # 로그인이 성공하면 리디렉션할 URL
         redirect_to = reverse_lazy('main')
 
-        # 사용자 인증
         user = form.get_user()
         authenticated_user = authenticate(
-            username=user.username,
+            username=user.email,
             password=form.cleaned_data.get('password')
         )
 
         if authenticated_user is not None:
-            # 로그인 성공 시 세션에 사용자 정보를 저장합니다.
             login(self.request, authenticated_user)
             return HttpResponseRedirect(redirect_to)
 
         return super().form_invalid(form)
     
 class LogoutView(LogoutView):
-    next_page = reverse_lazy('loginview') # 로그아웃 시 리디렉션할 URL
+    next_page = reverse_lazy('loginview')
 
     def get_next_page(self):
         next_page = super().get_next_page()
@@ -58,6 +55,28 @@ class FindIDView(View):
     template_name = 'user/find_ID.html'
     def get(self, request):
         return render(request, 'user/find_ID.html')
+    
+    def post(self, request):
+        email = request.POST['email']
+        name = request.POST['name']
+        birthdate_year = request.POST['birthdate_year']
+        birthdate_month = request.POST['birthdate_month']
+        birthdate_days = request.POST['birthdate_days']
+        birthdate = birthdate_year + "-" + birthdate_month + "-" + birthdate_days
+        info = {'email': email,'name': name,'birthdate_year': birthdate_year, 'birthdate_month': birthdate_month, 'birthdate_days': birthdate_days}
+
+        try:
+            user = User.objects.get(email=email, name=name, birth_date=birthdate)
+            if str(user) == email:
+                messages.info(request, '회원 정보가 일치합니다.')
+            else:
+                messages.error(request, '회원정보가 없거나 잘못되었습니다.')
+                return render(request, 'user/find_ID.html', info)
+        except:
+            messages.error(request, '회원정보가 없거나 잘못되었습니다.')
+            return render(request, 'user/find_ID.html', info)
+
+        return HttpResponse(render(request, 'user/find_ID.html', info))
     
 class FindPasswordView(View):
     template_name = 'user/find_Password.html'
@@ -98,7 +117,6 @@ class JoinView(View):
     
     def post(self, request):
         if request.POST.get('submit') == 'email-verify':
-            print(1)
             email = request.POST['email']
             password = request.POST['password']
             confirm_password = request.POST['confirm_password']
@@ -128,7 +146,6 @@ class JoinView(View):
             messages.success(request, '인증번호가 전송되었습니다.')
             return HttpResponse(render(request, 'user/join.html', info))
         elif request.POST.get('submit') == 'join':
-            print(2)
             email = request.POST['email']
             password = request.POST['password']
             confirm_password = request.POST['confirm_password']
@@ -159,14 +176,11 @@ class JoinView(View):
             else:
                 if self.check_email_code(request) == True:
                     messages.success(request, '회원가입이 완료되었습니다.')
+                    user = User.objects.create_user(email=email, password=password, name=name, nickname=nickname, birth_date=birthdate,is_active=True)
+                    user.save()
+                    user = authenticate(email=email, password=password)
+                    login(request, user)
                 elif self.check_email_code(request) == False:
                     messages.success(request, '인증번호가 잘못되었습니다. 다시 확인해주세요.')
                     return HttpResponse(render(request, 'user/join.html', info))
-
-            # user = User.objects.create_user(email=email, password=password, name=name, nickname=nickname, birth_date=birthdate)
-
-            # user.save()
-
-            # user = authenticate(email=email, password=password)
-            # login(request, user)
         return redirect('loginview')

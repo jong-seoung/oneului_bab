@@ -19,8 +19,42 @@
 
 {% block account_info %}
 <div class="findaccount_container">
-    <form class="findaccount_form" action="/find_account" method="POST">
+    <form class="findaccount_form" method="POST">
         <h3>아이디 찾기</h3>
+        <div>아이디는 가입하신 이메일과 동일합니다.</div>
+        <div class="find_id_info">이메일</div>
+        <input class="find_id_input" type="email" name="email" required value="{{email}}">
+        <div class="find_id_info">이름</div>
+        <input class="find_id_input" type="text" name="name" required value="{{name}}">
+        <div class="find_id_info">생년월일</div>
+        <div class="find_id_input" id="birthdate_info">
+            <input class="find_id_info_birthdate" type="text" name="birthdate_year" required value="{{birthdate_year}}">
+            <select class="find_id_info_birthdate" name="birthdate_month" required>
+                <option value="" selected disabled hidden>월</option>
+                <option value="1">1월</option>
+                <option value="2">2월</option>
+                <option value="3">3월</option>
+                <option value="4">4월</option>
+                <option value="5">5월</option>
+                <option value="6">6월</option>
+                <option value="7">7월</option>
+                <option value="8">8월</option>
+                <option value="9">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+            </select>
+            <input class="find_id_info_birthdate" type="text" name="birthdate_days" required value="{{birthdate_days}}">
+        </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% csrf_token %}
+        <button class="find_id_input" type="submit" name="submit" value="id_check">확인하기</button>
     </form>
 </div>
 {% endblock account_info %}

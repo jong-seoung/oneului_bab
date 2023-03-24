@@ -19,3 +19,26 @@
     margin-top: 10%;
     padding: 5% 17% 3% 17%;
 }
+
+
+.find_id_info{
+    text-align: left;
+    margin-top: 10px;
+}
+
+.find_id_input{
+    width: 100%;
+    height: 40px;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.find_id_info_birthdate{
+    width: 30%;
+}
+
+#birthdate_info{
+    margin-bottom: 5%;
+}
