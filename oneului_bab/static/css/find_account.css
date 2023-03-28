@@ -20,7 +20,24 @@
     padding: 5% 17% 3% 17%;
 }
 
+.messages{
+    margin-top: 5%;
+}
 
+/* 하단 링크 */
+.info_find_warp{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 10%;
+    margin-top: 8px;
+}
+
+.info_find{
+    margin: 0px 2%;
+}
+
+/* 아이디 */
 .find_id_info{
     text-align: left;
     margin-top: 10px;
@@ -40,5 +57,70 @@
 }
 
 #birthdate_info{
-    margin-bottom: 5%;
+    margin-bottom: 10px;
+}
+
+.messages{
+    margin-bottom: 3px;
+    padding: 0px;
+    color: red;
+}
+
+/* 패스워드 */
+.find_password_info{
+    text-align: left;
+    margin-top: 10px;
+}
+
+.find_password_input{
+    width: 100%;
+    height: 40px;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.find_password_info_birthdate{
+    width: 30%;
+}
+
+.join_info_input{
+    width: 100%;
+    height: 40px;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#emailcode{
+    width: 75%;
+}
+
+#emailsendbutton{
+    width: 20%;
+}
+
+#emailsend_box{
+    margin: 20px 0px;
+}
+
+/* 비밀번호 변경 */
+.change_password_info{
+    text-align: left;
+    margin-top: 10px;
+}
+
+.change_password_input{
+    width: 100%;
+    height: 40px;
+    margin-top: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#change_password_info_last{
+    margin-bottom: 20px;
 }

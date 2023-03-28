@@ -6,7 +6,7 @@ from django.views import View
 from django.contrib import messages
 from user.forms import CustomLoginForm
 from .models import User
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 import smtplib
 from email.mime.text import MIMEText
 
@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 secrets_file = os.path.join(BASE_DIR, 'secrets.json')
 ##########################
 
-class LoginView(LoginView):           # 로그인
+# 로그인
+class LoginView(LoginView):
     authentication_form = CustomLoginForm
     template_name = 'user/login.html'
 
@@ -43,6 +44,7 @@ class LoginView(LoginView):           # 로그인
 
         return super().form_invalid(form)
     
+# 로그아웃
 class LogoutView(LogoutView):
     next_page = reverse_lazy('loginview')
 
@@ -51,38 +53,7 @@ class LogoutView(LogoutView):
         messages.success(self.request, '로그아웃되었습니다.', extra_tags='success')
         return self.next_page
 
-class FindIDView(View):
-    template_name = 'user/find_ID.html'
-    def get(self, request):
-        return render(request, 'user/find_ID.html')
-    
-    def post(self, request):
-        email = request.POST['email']
-        name = request.POST['name']
-        birthdate_year = request.POST['birthdate_year']
-        birthdate_month = request.POST['birthdate_month']
-        birthdate_days = request.POST['birthdate_days']
-        birthdate = birthdate_year + "-" + birthdate_month + "-" + birthdate_days
-        info = {'email': email,'name': name,'birthdate_year': birthdate_year, 'birthdate_month': birthdate_month, 'birthdate_days': birthdate_days}
-
-        try:
-            user = User.objects.get(email=email, name=name, birth_date=birthdate)
-            if str(user) == email:
-                messages.info(request, '회원 정보가 일치합니다.')
-            else:
-                messages.error(request, '회원정보가 없거나 잘못되었습니다.')
-                return render(request, 'user/find_ID.html', info)
-        except:
-            messages.error(request, '회원정보가 없거나 잘못되었습니다.')
-            return render(request, 'user/find_ID.html', info)
-
-        return HttpResponse(render(request, 'user/find_ID.html', info))
-    
-class FindPasswordView(View):
-    template_name = 'user/find_Password.html'
-    def get(self, request):
-        return render(request, 'user/find_Password.html')
-    
+# 회원가입
 class JoinView(View):
     template_name = 'user/join.html'
     def get(self, request):
@@ -183,4 +154,159 @@ class JoinView(View):
                 elif self.check_email_code(request) == False:
                     messages.success(request, '인증번호가 잘못되었습니다. 다시 확인해주세요.')
                     return HttpResponse(render(request, 'user/join.html', info))
+        return redirect('loginview')
+
+# 아이디 찾기
+class FindIDView(View):
+    template_name = 'user/find_ID.html'
+    def get(self, request):
+        return render(request, 'user/find_ID.html')
+    
+    def post(self, request):
+        if request.POST.get('submit') == 'id_check':
+            email = request.POST['email']
+            name = request.POST['name']
+            birthdate_year = request.POST['birthdate_year']
+            birthdate_month = request.POST['birthdate_month']
+            birthdate_days = request.POST['birthdate_days']
+            birthdate = birthdate_year + "-" + birthdate_month + "-" + birthdate_days
+            info = {'email': email,'name': name,'birthdate_year': birthdate_year, 'birthdate_month': birthdate_month, 'birthdate_days': birthdate_days}
+
+            try:
+                user = User.objects.get(email=email, name=name, birth_date=birthdate)
+                if str(user) == email:
+                    messages.info(request, '회원 정보가 일치합니다.')
+                else:
+                    messages.error(request, '회원정보가 없거나 잘못되었습니다.')
+                    return render(request, 'user/find_ID.html', info)
+            except:
+                messages.error(request, '회원정보가 없거나 잘못되었습니다.')
+                return render(request, 'user/find_ID.html', info)
+
+            return HttpResponse(render(request, 'user/find_ID.html', info))
+
+# 비밀번호 찾기
+class FindPasswordView(View):
+    template_name = 'user/find_Password.html'
+
+    # 비밀번호 인증 코드 보내기
+    def send_email_password_code(self, request, email):
+        import random
+        code = random.randint(100000, 999999)
+        message = f"이메일 인증 코드 입니다. : {code}"
+        msg = MIMEText(message)
+        msg['Subject'] = '오늘의 밥 : 비밀번호 인증 코드'
+        msg['From'] = 'jjong015189@gmail.com'
+        msg['To'] = email
+
+        with open(secrets_file) as f:
+            secrets = json.load(f)
+
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.starttls()
+        s.login('jjong015189@gmail.com', secrets['GMAIL_KEY'])
+        s.sendmail('jjong015189@gmail.com', [email], msg.as_string())
+        s.quit()
+        request.session['email_verification_code'] = code
+        return code
+
+    def check_email_password_code(self, request):
+        emailcode = request.POST['emailcode']
+        if 'email_verification_code' in request.session:
+            if int(emailcode) == request.session['email_verification_code']:
+                return True
+        return False
+    
+    def get(self, request):
+        return render(request, 'user/find_Password.html')
+
+    def post(self, request):
+        if request.POST.get('submit') == 'email_verify':
+            email = request.POST['email']
+            name = request.POST['name']
+            birthdate_year = request.POST['birthdate_year']
+            birthdate_month = request.POST['birthdate_month']
+            birthdate_days = request.POST['birthdate_days']
+            birthdate = birthdate_year + "-" + birthdate_month + "-" + birthdate_days
+            info = {'email': email,'name': name,'birthdate_year': birthdate_year, 'birthdate_month': birthdate_month, 'birthdate_days': birthdate_days}
+
+            if not(email and name and birthdate_days and birthdate_month and birthdate_year):
+                print(email,name,birthdate_days,birthdate_month,birthdate_year)
+                messages.error(request, '모든 정보를 입력해주세요')
+                return render(request, 'user/find_Password.html', info)
+
+            try:
+                user = User.objects.get(email=email, name=name, birth_date=birthdate)
+                if str(user) == email:
+                    self.send_email_password_code(request, email)
+                    messages.info(request, '가입하신 이메일로 인증번호가 발송 되었습니다.')
+                    return render(request, 'user/find_Password.html', info)
+                else:
+                    messages.error(request, '회원정보가 없거나 잘못되었습니다.')
+                    return render(request, 'user/find_Password.html', info)
+            except:
+                messages.error(request, '회원정보가 없거나 잘못되었습니다.')
+                return render(request, 'user/find_Password.html', info)
+            
+        elif request.POST.get('submit') == 'search_password':
+            email = request.POST['email']
+            name = request.POST['name']
+            birthdate_year = request.POST['birthdate_year']
+            birthdate_month = request.POST['birthdate_month']
+            birthdate_days = request.POST['birthdate_days']
+            birthdate = birthdate_year + "-" + birthdate_month + "-" + birthdate_days
+            info = {'email': email,'name': name,'birthdate_year': birthdate_year, 'birthdate_month': birthdate_month, 'birthdate_days': birthdate_days}
+            emailcode = request.POST['emailcode']
+
+            if emailcode == "":
+                messages.error(request, '이메일 인증을 해주세요')
+                return HttpResponse(render(request, 'user/find_Password.html', info))
+            else:
+                if self.check_email_password_code(request) == True:
+                    request.session['emailcode'] = emailcode
+                    request.session['email'] = email
+                    return redirect('/changepassword/'+emailcode)
+                elif self.check_email_code(request) == False:
+                    messages.success(request, '인증번호가 잘못되었습니다. 다시 확인해주세요.')
+                    return HttpResponse(render(request, 'user/find_Password.html', info))
+                
+            return render(request, 'user/find_Password.html')
+
+# 비밀번호 변경
+class ChangePasswordView(View):
+    template_name = 'user/change_Password.html'
+
+    def get(self, request, emailcode):
+        email = request.session.get('email')
+        emailcode = request.session.get('emailcode')
+        if email == None:
+            email = "올바른 접근이 아닙니다."
+        return HttpResponse(render(request, 'user/change_Password.html', {'email':email,'emailcode':emailcode}))
+
+    def post(self, request, emailcode):
+        if request.POST.get('submit') == 'change_password':
+            email = request.POST['email']
+            password = request.POST['password']
+            confirm_password = request.POST['confirm_password']
+            print(email,password)
+            info = {'email': email,'password': password,'confirm_password': confirm_password}
+
+            if password != confirm_password:
+                messages.error(request, '비밀번호와 비밀번호 확인이 일치하지 않습니다.')
+                return HttpResponse(render(request, 'user/change_Password.html', info))
+            
+            if email == "올바른 접근이 아닙니다.":
+                messages.error(request, '올바른 접근이 아닙니다.')
+                return HttpResponse(render(request, 'user/change_Password.html', info))
+                                    
+            try:
+                user = User.objects.get(email=email)
+                user.set_password(password)
+                user.save()
+                del request.session['email']
+                messages.success(request, '비밀번호가 변경되었습니다.')
+                return redirect('loginview')
+            except:
+                messages.error(request, '비밀번호 변경에 실패했습니다.')
+                return HttpResponse(render(request, 'user/change_Password.html', info))
         return redirect('loginview')

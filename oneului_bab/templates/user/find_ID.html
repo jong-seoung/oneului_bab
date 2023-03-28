@@ -30,19 +30,19 @@
         <div class="find_id_input" id="birthdate_info">
             <input class="find_id_info_birthdate" type="text" name="birthdate_year" required value="{{birthdate_year}}">
             <select class="find_id_info_birthdate" name="birthdate_month" required>
-                <option value="" selected disabled hidden>월</option>
-                <option value="1">1월</option>
-                <option value="2">2월</option>
-                <option value="3">3월</option>
-                <option value="4">4월</option>
-                <option value="5">5월</option>
-                <option value="6">6월</option>
-                <option value="7">7월</option>
-                <option value="8">8월</option>
-                <option value="9">9월</option>
-                <option value="10">10월</option>
-                <option value="11">11월</option>
-                <option value="12">12월</option>
+                <option value="" {% if not birthdate_month %}selected{% endif %} disabled hidden>월</option>
+                <option value="1" {% if birthdate_month == '1' %}selected{% endif %}>1월</option>
+                <option value="2" {% if birthdate_month == '2' %}selected{% endif %}>2월</option>
+                <option value="3" {% if birthdate_month == '3' %}selected{% endif %}>3월</option>
+                <option value="4" {% if birthdate_month == '4' %}selected{% endif %}>4월</option>
+                <option value="5" {% if birthdate_month == '5' %}selected{% endif %}>5월</option>
+                <option value="6" {% if birthdate_month == '6' %}selected{% endif %}>6월</option>
+                <option value="7" {% if birthdate_month == '7' %}selected{% endif %}>7월</option>
+                <option value="8" {% if birthdate_month == '8' %}selected{% endif %}>8월</option>
+                <option value="9" {% if birthdate_month == '9' %}selected{% endif %}>9월</option>
+                <option value="10" {% if birthdate_month == '10' %}selected{% endif %}>10월</option>
+                <option value="11" {% if birthdate_month == '11' %}selected{% endif %}>11월</option>
+                <option value="12" {% if birthdate_month == '12' %}selected{% endif %}>12월</option>
             </select>
             <input class="find_id_info_birthdate" type="text" name="birthdate_days" required value="{{birthdate_days}}">
         </div>
@@ -56,5 +56,12 @@
         {% csrf_token %}
         <button class="find_id_input" type="submit" name="submit" value="id_check">확인하기</button>
     </form>
+    <div class="info_find_warp">
+        <a class="info_find" href="/findid">아이디 찾기</a>
+        <div class="info_find">|</div>
+        <a class="info_find" href="/findpassword">비밀번호 찾기</a>
+        <div class="info_find">|</div>
+        <a class="info_find" href="/join">회원가입</a>
+    </div>
 </div>
 {% endblock account_info %}

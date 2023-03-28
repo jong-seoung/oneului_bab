@@ -49,3 +49,16 @@
 #emailsend_box{
     margin: 20px 0px;
 }
+
+/* 하단 링크 */
+.info_find_warp{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 10%;
+    margin-top: 8px;
+}
+
+.info_find{
+    margin: 0px 2%;
+}
