@@ -57,28 +57,45 @@
 }
 
 .result_menu{
-    padding: 2%;
+    padding: 4%;
 }
 
 .result_menu li{
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    padding: 0px 0px 15px 0px ;
+    margin-bottom: 15px;
+    border-bottom: 3px  dashed #D4D0CB;
 }
 
 .photo_info{
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 80px;
 }
 
 .menu_info{
     display: flex;
+    flex-direction: row;
+}
+
+.menu_info_detail{
+    display: flex;
     flex-direction: column;
     padding: 5px;
+}
+
+.menu_info  .menu_info_detail p{
+    margin: 0px;
+    font-size: 25px;
 }
 
 .like_info{
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+}
+
+.save{
+    cursor: pointer;
 }

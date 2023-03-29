@@ -74,16 +74,21 @@
         {% if selected_food_list %}
             {% for selected_food_lst in selected_food_list %}
                 <li>
-                    <br>
-                    <img class="photo_info" src="media/{{ selected_food_lst.image }}" alt="">
                     <div class="menu_info">
-                        <a href="">
-                            {{ selected_food_lst.name }}
-                        </a>
-                        <div class="like_info">
-                            <div>저장수</div>
-                            <div>아이콘</div>
+                        <img class="photo_info" src="media/{{ selected_food_lst.image }}" alt="">
+                        <div class="menu_info_detail">
+                            <p>
+                                {{ selected_food_lst.name }}
+                            </p>
+                            <div class="like_info">
+                                <div>
+                                    {{feed.like_count}}명이 {{ selected_food_lst.name }}을저장하였습니다.
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div>
+                        <span id="save_{{selected_food_lst.food_id}}" food_id="{{selected_food_lst.food_id}}" class="save">저장</span>
                     </div>
                 </li>
             {% endfor %}

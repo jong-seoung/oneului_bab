@@ -26,7 +26,7 @@ class LoginView(LoginView):
     template_name = 'user/login.html'
 
     def form_invalid(self, form):
-        messages.error(self.request, '아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.', extra_tags='danger')
+        messages.error(self.request, '아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.', extra_tags='danger')
         return super().form_invalid(form)
     
     def form_valid(self, form):

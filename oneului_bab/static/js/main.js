@@ -1,3 +1,36 @@
+// 저장 기능
+$(document).ready(function() {
+    $(".save").click(function(event){
+        let food_id = event.target.attributes.getNamedItem('food_id').value;
+        let save_id = event.target.id;
+        let save_text = $.trim($('#'+save_id).html());
+        if (save_text == '저장'){
+            $('#'+save_id).html('저장됨');
+        }else{ 
+            $('#'+save_id).html('저장');
+        }
+
+        $.ajax({
+            url: "/save",
+            data: {
+                food_id : food_id,
+                save_text : save_text
+            },
+            method: "SAVE",
+
+            success: function (data){
+                console.log("성공");
+            },
+            error: function (request, status, error){
+                console.log("에러");
+            },
+            complete: function (){
+                console.log("완료");
+            }
+        });
+    });
+});
+
 // 이전에 저장한 선택된 항목이 있다면, 그 값을 불러와서 초기화한다.
 if (localStorage.selectedMenu) {
     var allElements = document.getElementsByTagName("*");
@@ -14,7 +47,7 @@ if (localStorage.selectedMenu) {
     }
 }
 
-  // 선택한 메뉴 항목의 ID와 이름을 저장한다.
+// 선택한 메뉴 항목의 ID와 이름을 저장한다.
 function saveSelectedMenu() {
     var selectedIds = {};
     var selectedMenus = document.getElementsByClassName('menu-active');
@@ -26,6 +59,7 @@ function saveSelectedMenu() {
     localStorage.selectedMenu = JSON.stringify(selectedIds);
 }
 
+// 새로고침시 기능
 window.onload = function() {
     window.scrollTo({ top: window.scrollY, behavior: 'smooth' });
     localStorage.removeItem('selectedMenu');

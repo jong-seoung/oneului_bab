@@ -32,14 +32,15 @@
                             <div class="navbar_detail">
                                 <div class="navbar_log_description"><a href="/">오늘의 밥</a></div>
                             </div>
-                            <div class="navbar_detail">
-                                <div class="navbar_save_text">저장</div>
+                            <div class="navbar_detail_row">
                                 {% if user.is_authenticated %}
-                                    <div class="navbar_login_text"><a href="/">마이페이지</a></div>
-                                    <div class="navbar_login_text"><a href="/logout">로그아웃</a></div>
+                                    <div class="navbar_detail_row_text"><a href="/logout">로그아웃</a></div>
+                                    <div class="navbar_detail_row_text"><a href="/">회원정보</a></div>
                                 {% else %}
-                                    <div class="navbar_login_text"><a href="/login">로그인</a></div>
+                                    <div class="navbar_detail_row_text"><a href="/login">로그인</a></div>
                                 {% endif %}
+                                <div class="navbar_detail_row_text"><a href="">저장됨</a></div>
+                                <div class="navbar_detail_row_text"><a href="">다운로드</a></div>
                             </div>
                         </div>
                     </div>
@@ -47,9 +48,6 @@
                         <div class="navbar_bottom_container">
                             <div class="navbar_detail">
                                 <div class="navbar_log_name"><a href="/">O-Bab</a></div>
-                            </div>
-                            <div class="navbar_detail_col">
-                                <div class="navbar_detail_col_text">앱 다운로드</div>
                             </div>
                         </div>
                     </div>

@@ -15,14 +15,22 @@
 {% endblock css %}
 
 {% block content %}
-<form method="POST" action="{% url 'question' %}" onsubmit="submitForm(event)">
+<form method="POST" >
     {% csrf_token %}
     <div class="question">
-        <input type="text" name="title" value=""></input>
-        <textarea id="textarea" name="content" rows="4"></textarea>
-        <button  type="submit">문의하기</button>
+        <input type="text" name="title" value="{{ title }}"></input>
+        <textarea id="textarea" name="content" rows="4">{{ content }}</textarea>
+        {% csrf_token %}
+        <button type="submit" name="submit" value="question_upload">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </button>
     </div>
 </form>
+
 {% endblock content %}
 
 {% block question %}
@@ -35,6 +43,13 @@
             <button class="toggle-btn"></button>
         </div>
         <div class="accordion-content">
+            <div class="accordion_author">
+                <p>작성자 : 백종성</p>
+                <div class="accordion_UD">
+                <p>수정</p>
+                <p>삭제</p>
+                </div>
+            </div>
             <pre class="question_content">{{ Question.content }}</pre>
             <pre class="question_content">{{ Question.answer }}</pre>
         </div>

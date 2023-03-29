@@ -21,11 +21,13 @@ section {
 a{
     color: #7f7d79;
     text-decoration: none;
+    font-weight: normal;
 }
 
 a:hover{
-    color: #3d3c3a;
+    color: #7f7d79;
     text-decoration: none;
+    font-weight: bold;
 }
 
 div{
@@ -52,19 +54,13 @@ div{
     justify-content: space-between;
 }
 
-.navbar_detail{
+.navbar_detail_row{
     display: flex;
     flex-direction: row;
 }
 
-.navbar_detail_col{
-    display: flex;
-    flex-direction: column;
-}
-
-.navbar_detail_col_text{
+.navbar_detail_row_text{
     font-size: 14px;
-    margin-top: 4px;
 }
 
 .navbar_log_description{
@@ -72,21 +68,12 @@ div{
     line-height: 200%;
 }
 
-/* .navbar_log_description:hover{
-    cursor: pointer;
-} */
-
-.navbar_save_text{
-    margin-right: 10px;
-    font-size: 17px;
-    line-height: 200%;
-}
-
-.navbar_login_text{
+.navbar_detail_row_text{
     margin-left: 10px;
     font-size: 17px;
     line-height: 200%;
 }
+
 .navbar_bottom{
     background: linear-gradient(to right, #ECE8E2, #EAEAEA);
     height: 60%;

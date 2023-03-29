@@ -62,3 +62,19 @@
 .info_find{
     margin: 0px 2%;
 }
+
+#join_button{
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+#emailsendbutton{
+    width: 20%;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

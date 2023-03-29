@@ -66,6 +66,13 @@
     color: red;
 }
 
+#fine_id_button{
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    font-weight: 800;
+}
+
 /* 패스워드 */
 .find_password_info{
     text-align: left;
@@ -100,10 +107,22 @@
 
 #emailsendbutton{
     width: 20%;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 #emailsend_box{
     margin: 20px 0px;
+}
+
+#find_password_button{
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    font-weight: 800;
 }
 
 /* 비밀번호 변경 */
@@ -123,4 +142,11 @@
 
 #change_password_info_last{
     margin-bottom: 20px;
+}
+
+#change_password_button{
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    font-weight: 800;
 }

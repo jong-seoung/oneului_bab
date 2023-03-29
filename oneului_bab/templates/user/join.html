@@ -55,7 +55,7 @@
             <div class="join_info_input" id="emailsend_box">
                 <input class="join_info_input" id="emailcode" type="text" name="emailcode" placeholder="인증번호를 입력하세요">
                 {% csrf_token %}
-                <button class="join_info_input" id="emailsendbutton" type="submit" name="submit" value="email-verify">이메일 인증하기</button>
+                <button class="join_info_input" id="emailsendbutton" type="submit" name="submit" value="email-verify">인증하기</button>
             </div>
         </div>
         {% if messages %}
@@ -66,7 +66,7 @@
         </ul>
         {% endif %}
         {% csrf_token %}
-        <button class="join_info_input" type="submit" name="submit" value="join">가입하기</button>
+        <button class="join_info_input" id="join_button" type="submit" name="submit" value="join">가입하기</button>
     </form>
     <div class="info_find_warp">
         <a class="info_find" href="/findid">아이디 찾기</a>

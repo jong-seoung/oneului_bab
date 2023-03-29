@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 class FoodList(models.Model):
     MAIN_CHOICES = (("noodle", "면"), ("rice", "밥"), ("bread", "빵"))
@@ -21,6 +22,8 @@ class FoodList(models.Model):
         return '{}'.format(self.name)
 
 class Question(models.Model):
+    email = models.EmailField(_('email address'), unique=True, blank=False,default='')
+    nickname = models.CharField(_('nickname'), max_length=30, blank=False,default='')
     title = models.CharField(max_length=255)
     content = models.TextField()
     answer = models.TextField(default="아직 답변이 없습니다. 빠른 시일내에 답변해 드리겠습니다.")
@@ -30,3 +33,8 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
+
+class Save(models.Model):
+    food_id = models.IntegerField(default=0)
+    email = models.EmailField(default='')
+    is_save = models.BooleanField(default=True)

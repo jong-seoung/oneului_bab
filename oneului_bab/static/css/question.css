@@ -42,9 +42,8 @@
 .question button {
     background-color: #f5efe8;
     box-shadow: 2px 2px 1px 1px #D4D0CB;
-    color: black;
     border: none;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
@@ -131,4 +130,36 @@
     border: 0px;
     padding: 0px;
     font-size: 14px;
+}
+
+.accordion_author{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.accordion_UD{
+    display: flex;
+    flex-direction: row;
+}
+
+.accordion_UD p{
+    margin-left: 10px;
+}
+
+.messages{
+    margin: 5px 0px;
+    padding: 0px;
+}
+
+.messages .info{
+    color: #908e8b;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.messages .error{
+    color: rgb(250, 84, 84);
+    font-size: 15px;
+    font-weight: 600;
 }
