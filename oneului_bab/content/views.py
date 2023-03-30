@@ -81,11 +81,15 @@ class Main(TemplateView):
     
     def get(self, request):
         food_list_cookie = request.COOKIES.get('random_food_list')
+        email = request.user.email
+
         if food_list_cookie:
             food_list = json.loads(food_list_cookie)
             selected_food_list = []
             for i in food_list:
-                selected_food_list.append({'name':i.get('name'),'image':i.get('image'),'food_id':i.get('id')})
+                save_count = Save.objects.filter(food_id=i.get('id'), is_save=True).count()
+                is_saved = Save.objects.filter(food_id=i.get('id'), email=email,is_save=True).exists()
+                selected_food_list.append({'name':i.get('name'),'image':i.get('image'),'food_id':i.get('id'),'save_count':save_count,'is_saved':is_saved})
             random.shuffle(selected_food_list)
             return render(request, 'content/main.html', {'selected_food_list': selected_food_list})
         else:
@@ -174,15 +178,14 @@ class Question_Answer(TemplateView):
 # 저장기능
 class ToggleSave(APIView):
     def post(self,request):
-        print(1)
         food_id = request.data.get('food_id',None)
-        favorite_text = request.data.get('favorite_text',True)
+        save_text = request.data.get('save_text',True)
 
-        if favorite_text == 'favorite_border':
+        if save_text == '저장':
             is_save = True
         else:
             is_save = False
-        email = request.session.get('email',None)
+        email = request.user.email
 
         save = Save.objects.filter(food_id=food_id,email=email).first()
 
@@ -191,5 +194,10 @@ class ToggleSave(APIView):
             save.save()
         else:
             Save.objects.create(food_id=food_id, is_save=is_save,email=email)
+        
+        save_count = Save.objects.filter(food_id=food_id, is_save=True).count()
+        is_saved = Save.objects.filter(food_id=food_id, email=email,is_save=True).exists()
+        food_info = FoodList.objects.filter(id=food_id).first() 
+        selected_food_list = {'save_count':save_count,'is_saved':is_saved,'name':food_info.name,'id':food_info.id}
 
-        return Response(status=200)
+        return HttpResponse(json.dumps(selected_food_list), content_type="application/json")

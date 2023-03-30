@@ -80,15 +80,17 @@
                             <p>
                                 {{ selected_food_lst.name }}
                             </p>
-                            <div class="like_info">
-                                <div>
-                                    {{feed.like_count}}명이 {{ selected_food_lst.name }}을저장하였습니다.
+                            <div class="save_info">
+                                <div id="save_info_detail_{{selected_food_lst.food_id}}">
+                                    {{selected_food_lst.save_count}}명이 {{ selected_food_lst.name }}을 저장하였습니다.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <span id="save_{{selected_food_lst.food_id}}" food_id="{{selected_food_lst.food_id}}" class="save">저장</span>
+                        <span id="save_{{selected_food_lst.food_id}}" food_id="{{selected_food_lst.food_id}}" class="save">
+                            {% if selected_food_lst.is_saved %}저장됨{% else %}저장{% endif %}
+                        </span>
                     </div>
                 </li>
             {% endfor %}

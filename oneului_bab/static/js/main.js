@@ -11,15 +11,17 @@ $(document).ready(function() {
         }
 
         $.ajax({
-            url: "/save",
+            url: "save",
             data: {
                 food_id : food_id,
                 save_text : save_text
             },
-            method: "SAVE",
+            method: "POST",
 
-            success: function (data){
+            success: function (response){
                 console.log("성공");
+                console.log("#save_info_detail_"+response.id);
+                $("#save_info_detail_"+response.id).html(response.save_count+"명이 "+response.name+"을 저장하였습니다.");
             },
             error: function (request, status, error){
                 console.log("에러");

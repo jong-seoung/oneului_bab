@@ -22,14 +22,12 @@ class FoodList(models.Model):
         return '{}'.format(self.name)
 
 class Question(models.Model):
-    email = models.EmailField(_('email address'), unique=True, blank=False,default='')
+    email = models.EmailField(default='')
     nickname = models.CharField(_('nickname'), max_length=30, blank=False,default='')
     title = models.CharField(max_length=255)
     content = models.TextField()
     answer = models.TextField(default="아직 답변이 없습니다. 빠른 시일내에 답변해 드리겠습니다.")
     created_at = models.DateTimeField(auto_now_add=True)
-
-
 
     def __str__(self):
         return self.title
