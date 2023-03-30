@@ -79,14 +79,22 @@ function sendData() {
         formData.append('weight', weight);
         formData.append('image', image);
 
+
         $.ajax({
             url: '/recommend/',
             data: formData,
             method: "POST",
             processData: false,
             contentType: false,
-            success: function (data){
-                location.replace("");
+            success: function (response)    {
+                if(response.email === null){
+                    alert('로그인이 필요한 기능입니다.');
+                    location.replace('/login');
+                }
+                else {
+                    alert('추천해주셔서 감사합니다.');
+                    location.reload();
+                }
             },
             error: function (request, status, error){
                 console.log("에러");

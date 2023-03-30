@@ -40,6 +40,7 @@ class LoginView(LoginView):
 
         if authenticated_user is not None:
             login(self.request, authenticated_user)
+            self.request.session['email'] = user.email
             return HttpResponseRedirect(redirect_to)
 
         return super().form_invalid(form)

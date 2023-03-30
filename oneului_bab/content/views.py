@@ -81,8 +81,8 @@ class Main(TemplateView):
     
     def get(self, request):
         food_list_cookie = request.COOKIES.get('random_food_list')
-        email = request.user.email
-
+        email = request.session.get('email',None)
+        
         if food_list_cookie:
             food_list = json.loads(food_list_cookie)
             selected_food_list = []
@@ -127,22 +127,27 @@ def recommend(request):
         weight = request.POST.get('weight')
         approved = False
         file = request.FILES.get('image')
+        email = request.session.get('email',None)
 
-        if file:
-            uuid_name = uuid4().hex
-            save_path = os.path.join(MEDIA_ROOT, uuid_name)
-
-            # 파일을 읽어서 파일을 만들기
-            with open(save_path, 'wb+') as destination:
-                for chunk in file.chunks():
-                    destination.write(chunk)
-
-            image = uuid_name
+        if email == None:     
+            email = {'email':email}
+            return HttpResponse(json.dumps(email), content_type="application/json")
         else:
-            image = 'food_basic_img.jpg'
-        
-        FoodList.objects.create(name=name, main=main, soup=soup, Spicy=spicy, temperature=temperature, weight=weight, image=image, approved=approved)
-        return redirect('recommendname')
+            if file:
+                uuid_name = uuid4().hex
+                save_path = os.path.join(MEDIA_ROOT, uuid_name)
+
+                # 파일을 읽어서 파일을 만들기
+                with open(save_path, 'wb+') as destination:
+                    for chunk in file.chunks():
+                        destination.write(chunk)
+
+                image = uuid_name
+            else:
+                image = 'food_basic_img.jpg'
+            
+            FoodList.objects.create(name=name, main=main, soup=soup, Spicy=spicy, temperature=temperature, weight=weight, image=image, approved=approved)
+            return redirect('recommendname')
     return render(request, 'content/recommend.html')
 
 # 문의하기
@@ -161,7 +166,12 @@ class Question_Answer(TemplateView):
         if request.POST.get('submit') == 'question_upload':
             title = request.POST['title']
             content = request.POST['content']
+            email = request.session.get('email',None)
             ctx = {'Questions': self.queryset[::-1],'title':title,'content':content}
+
+            if email == None:
+                messages.error(request,"로그인이 필요한 기능입니다.")
+                return redirect('loginview')
             if title == "":
                 messages.error(request,"제목이 없습니다.")
                 return HttpResponse(render(request, 'content/question.html', ctx))
@@ -180,24 +190,28 @@ class ToggleSave(APIView):
     def post(self,request):
         food_id = request.data.get('food_id',None)
         save_text = request.data.get('save_text',True)
+        email = request.session.get('email',None)
 
-        if save_text == '저장':
-            is_save = True
+        if email == None:
+            email = {'email':email}
+            return HttpResponse(json.dumps(email), content_type="application/json")
         else:
-            is_save = False
-        email = request.user.email
+            if save_text == '저장':
+                is_save = True
+            else:
+                is_save = False
 
-        save = Save.objects.filter(food_id=food_id,email=email).first()
+            save = Save.objects.filter(food_id=food_id,email=email).first()
 
-        if save:
-            save.is_save = is_save
-            save.save()
-        else:
-            Save.objects.create(food_id=food_id, is_save=is_save,email=email)
-        
-        save_count = Save.objects.filter(food_id=food_id, is_save=True).count()
-        is_saved = Save.objects.filter(food_id=food_id, email=email,is_save=True).exists()
-        food_info = FoodList.objects.filter(id=food_id).first() 
-        selected_food_list = {'save_count':save_count,'is_saved':is_saved,'name':food_info.name,'id':food_info.id}
+            if save:
+                save.is_save = is_save
+                save.save()
+            else:
+                Save.objects.create(food_id=food_id, is_save=is_save,email=email)
+            
+            save_count = Save.objects.filter(food_id=food_id, is_save=True).count()
+            is_saved = Save.objects.filter(food_id=food_id, email=email,is_save=True).exists()
+            food_info = FoodList.objects.filter(id=food_id).first() 
+            selected_food_list = {'save_count':save_count,'is_saved':is_saved,'name':food_info.name,'id':food_info.id,'email':email}
 
-        return HttpResponse(json.dumps(selected_food_list), content_type="application/json")
+            return HttpResponse(json.dumps(selected_food_list), content_type="application/json")

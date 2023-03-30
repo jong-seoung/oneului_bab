@@ -4,11 +4,6 @@ $(document).ready(function() {
         let food_id = event.target.attributes.getNamedItem('food_id').value;
         let save_id = event.target.id;
         let save_text = $.trim($('#'+save_id).html());
-        if (save_text == '저장'){
-            $('#'+save_id).html('저장됨');
-        }else{ 
-            $('#'+save_id).html('저장');
-        }
 
         $.ajax({
             url: "save",
@@ -19,9 +14,19 @@ $(document).ready(function() {
             method: "POST",
 
             success: function (response){
-                console.log("성공");
-                console.log("#save_info_detail_"+response.id);
-                $("#save_info_detail_"+response.id).html(response.save_count+"명이 "+response.name+"을 저장하였습니다.");
+                if(response.email === null){
+                    alert('로그인이 필요한 기능입니다.');
+                    location.replace('/login');
+                }
+                else{
+                    console.log("#save_info_detail_"+response.id);
+                    $("#save_info_detail_"+response.id).html(response.save_count+"명이 "+response.name+"을 저장하였습니다.");
+                    if (save_text == '저장'){
+                        $('#'+save_id).html('저장됨');
+                    }else{ 
+                        $('#'+save_id).html('저장');
+                    }
+                }
             },
             error: function (request, status, error){
                 console.log("에러");
