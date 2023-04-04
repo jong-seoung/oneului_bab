@@ -2,11 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Q
-from .models import FoodList, Save
-from rest_framework.response import Response
+from .models import FoodList, Save, Question
+from user.models import User
 from rest_framework.views import APIView
 import json
-from .models import Question
 import os
 from uuid import uuid4
 from config.settings import MEDIA_ROOT
@@ -158,7 +157,18 @@ class Question_Answer(TemplateView):
     def get(self, request, *args, **kwargs):
         messages.info(request,"문의하기")
         ctx = {
-            'Questions': self.queryset[::-1]
+            'Questions': [
+                {
+                    'id': q.id,
+                    'email': q.email,
+                    'nickname': str(q.nickname)[:-2] + '**' if len(q.nickname) > 2 else str(q.nickname)[:-1] + '*',
+                    'title': q.title,
+                    'content': q.content,
+                    'answer': q.answer,
+                    'created_at': q.created_at.strftime('%Y년 %m월 %d일')
+                }
+                for q in self.queryset[::-1]
+            ]
         }
         return self.render_to_response(ctx)
     
@@ -167,8 +177,21 @@ class Question_Answer(TemplateView):
             title = request.POST['title']
             content = request.POST['content']
             email = request.session.get('email',None)
-            ctx = {'Questions': self.queryset[::-1],'title':title,'content':content}
-
+            ctx = {            
+                'Questions': [
+                {
+                    'id': q.id,
+                    'email': q.email,
+                    'nickname': str(q.nickname)[:-2] + '**' if len(q.nickname) > 2 else str(q.nickname)[:-1] + '*',
+                    'title': q.title,
+                    'content': q.content,
+                    'answer': q.answer,
+                    'created_at': q.created_at.strftime('%Y년 %m월 %d일')
+                }
+                for q in self.queryset[::-1]
+            ],
+            'title':title,
+            'content':content}
             if email == None:
                 messages.error(request,"로그인이 필요한 기능입니다.")
                 return redirect('loginview')
@@ -180,13 +203,16 @@ class Question_Answer(TemplateView):
                 return HttpResponse(render(request, 'content/question.html', ctx))
             else:
                 print("등록완료")
-                Question.objects.create(title=title, content=content)
+                user = User.objects.filter(email=email).first()
+                nickname = user.nickname
+                Question.objects.create(title=title, content=content,nickname=nickname,email=email)
                 return redirect('question')
         else:
             return render(request, 'content/question.html')
 
 # 저장기능
 class ToggleSave(APIView):
+
     def post(self,request):
         food_id = request.data.get('food_id',None)
         save_text = request.data.get('save_text',True)
@@ -215,3 +241,43 @@ class ToggleSave(APIView):
             selected_food_list = {'save_count':save_count,'is_saved':is_saved,'name':food_info.name,'id':food_info.id,'email':email}
 
             return HttpResponse(json.dumps(selected_food_list), content_type="application/json")
+        
+# 저장된목록
+class SaveList(TemplateView):
+    template_name = 'content/savelist.html'
+
+    def get(self,request):
+        email = request.session.get('email',None)
+
+        if email == None:     
+            email = {'email':email}
+            return HttpResponse(json.dumps(email), content_type="application/json")
+        id_list = Save.objects.filter(email=email,is_save=True).values_list('id', flat=True)
+        food_lists = FoodList.objects.filter(id__in=id_list)
+
+        context = {
+            'food_lists': food_lists,
+        }
+
+        return render(request, 'content/savelist.html', context)
+    
+    def post(self,request):
+        print(request)
+        food_id = request.POST.get('food_id',None)
+        save_text = request.POST.get('save_text',True)
+        email = request.session.get('email',None)
+        print(food_id,save_text,email)
+
+        if save_text == '저장 취소':
+            is_save = False
+
+        save = Save.objects.filter(food_id=food_id,email=email).first()
+        print(save)
+        print(food_id,save_text,email)
+        if save:
+            save.is_save = is_save
+            save.save()
+        else:
+            Save.objects.create(food_id=food_id, is_save=is_save,email=email)
+
+        return render(request, 'content/savelist.html')

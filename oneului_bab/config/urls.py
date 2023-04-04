@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 # from user.views import Login
-from content.views import Main, Index, recommend, Question_Answer, ToggleSave
+from content.views import Main, Index, recommend, Question_Answer, ToggleSave, SaveList
 from user.views import LoginView, LogoutView, FindIDView, FindPasswordView, JoinView, ChangePasswordView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -28,6 +28,7 @@ urlpatterns = [
     path('recommend/',recommend,name="recommendname"),
     path('question/', Question_Answer.as_view(),name="question"),
     path('index/',Index.as_view(),name="index"),
+    path('savelist/',SaveList.as_view(),name="savelistveiw"),
     path('save',ToggleSave.as_view()),
 
     path('login/',LoginView.as_view(),name="loginview"),

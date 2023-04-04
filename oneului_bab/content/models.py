@@ -30,7 +30,8 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return '{} - {}'.format(self.title, self.created_at.strftime('%Y년 %m월 %d일 %H시 %M분'))
+    
 
 class Save(models.Model):
     food_id = models.IntegerField(default=0)

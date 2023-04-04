@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+</script>
+{% endblock script %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/savelist.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="savelist_box">
+    <ul class="savelist">
+        {% if food_lists %}
+            {% for save_food_list in food_lists %}
+                <li>
+                    <div class="menu_info">
+                        <img class="photo_info" src="/media/{{ save_food_list.image }}" alt="">
+                        <div class="menu_info_detail">
+                            <p>
+                                {{ save_food_list.name }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="save_text_list">
+                        <div class="save_txt">
+                            메모 추가 
+                        </div>
+                        <div class="save_txt">
+                            |
+                        </div>
+                        <span id="save_{{save_food_list.id}}" food_id="{{save_food_list.id}}" class="save">
+                            저장 취소
+                        </span>
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <h2>저장된 음식이 없습니다.</h2>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script src="{% static 'js/save.js' %}"></script>
+{% endblock javascript %}

@@ -1,0 +1,71 @@
+.savelist_box{
+    background-color: #ECE8E2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.savelist{
+    width: 100%;
+    background-color: #f8f4ed;
+    border: solid 2px #D4D0CB;
+    margin-top: 10px;
+    text-align: center;
+    padding: 0px;
+}
+
+.savelist{
+    padding: 4%;
+}
+
+.savelist h2{
+    padding: 0px;
+}
+
+.photo_info{
+    width: 100px;
+    height: 80px;
+}
+
+.menu_info{
+    display: flex;
+    flex-direction: row;
+}
+
+.savelist li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 0px 15px 0px ;
+    margin-bottom: 15px;
+    border-bottom: 3px  dashed #D4D0CB;
+}
+
+.menu_info_detail{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-left: 7px;
+}
+
+.save{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.menu_info_detail p{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.save_txt{
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.save_text_list{
+    display: flex;
+    flex-direction: row;
+}
