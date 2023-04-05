@@ -37,3 +37,8 @@ class Save(models.Model):
     food_id = models.IntegerField(default=0)
     email = models.EmailField(default='')
     is_save = models.BooleanField(default=True)
+
+class Save_memo(models.Model):
+    food_id = models.ForeignKey(FoodList, on_delete=models.CASCADE, related_name='memo_set')
+    email = models.EmailField(default='')
+    memo = models.CharField(default='',max_length=255)

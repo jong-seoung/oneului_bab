@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Q
-from .models import FoodList, Save, Question
+from .models import FoodList, Save, Question, Save_memo
 from user.models import User
 from rest_framework.views import APIView
 import json
@@ -228,12 +228,15 @@ class ToggleSave(APIView):
                 is_save = False
 
             save = Save.objects.filter(food_id=food_id,email=email).first()
-
+            
             if save:
                 save.is_save = is_save
                 save.save()
             else:
                 Save.objects.create(food_id=food_id, is_save=is_save,email=email)
+                food = FoodList.objects.get(id=food_id)
+                Save_memo.objects.create(food_id=food, memo="",email=email)
+                
             
             save_count = Save.objects.filter(food_id=food_id, is_save=True).count()
             is_saved = Save.objects.filter(food_id=food_id, email=email,is_save=True).exists()
@@ -252,32 +255,52 @@ class SaveList(TemplateView):
         if email == None:     
             email = {'email':email}
             return HttpResponse(json.dumps(email), content_type="application/json")
+        
         id_list = Save.objects.filter(email=email,is_save=True).values_list('id', flat=True)
-        food_lists = FoodList.objects.filter(id__in=id_list)
+        food_lists = FoodList.objects.filter(id__in=id_list).prefetch_related('memo_set')
+
+        for food_list in food_lists:
+            memo_list = []
+            for memo in food_list.memo_set.all():
+                memo_list.append(memo.memo)
+            food_list.memo_list = memo_list
 
         context = {
-            'food_lists': food_lists,
+            'food_lists': food_lists
         }
-
         return render(request, 'content/savelist.html', context)
     
     def post(self,request):
-        print(request)
-        food_id = request.POST.get('food_id',None)
-        save_text = request.POST.get('save_text',True)
-        email = request.session.get('email',None)
-        print(food_id,save_text,email)
+        if 'memo_text' in request.POST:
+            memo_text = request.POST.get('memo_text', '')
+            food_id = request.POST.get('food_id',None)
+            email = request.session.get('email',None)
+            print(memo_text)
 
-        if save_text == '저장 취소':
-            is_save = False
+            food = FoodList.objects.get(id=food_id)
+            save_memo = Save_memo.objects.filter(food_id=food,email=email).first()
 
-        save = Save.objects.filter(food_id=food_id,email=email).first()
-        print(save)
-        print(food_id,save_text,email)
-        if save:
-            save.is_save = is_save
-            save.save()
-        else:
-            Save.objects.create(food_id=food_id, is_save=is_save,email=email)
+            if save_memo:
+                save_memo.memo = memo_text
+                save_memo.save()
+            else:
+                Save_memo.objects.create(food_id=food, memo=memo_text,email=email)
 
+        elif 'save_text' in request.POST:
+            food_id = request.POST.get('food_id',None)
+            save_text = request.POST.get('save_text',True)
+            email = request.session.get('email',None)
+            print(save_text)
+            if save_text == '저장 취소':
+                is_save = False
+
+            save = Save.objects.filter(food_id=food_id,email=email).first()
+
+            if save:
+                save.is_save = is_save
+                save.save()
+            else:
+                Save.objects.create(food_id=food_id, is_save=is_save,email=email)
+        print(3)
+        print(request.POST)
         return render(request, 'content/savelist.html')

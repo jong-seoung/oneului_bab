@@ -22,22 +22,33 @@
                 <li>
                     <div class="menu_info">
                         <img class="photo_info" src="/media/{{ save_food_list.image }}" alt="">
-                        <div class="menu_info_detail">
-                            <p>
-                                {{ save_food_list.name }}
-                            </p>
+                        <div class="menu_info_textbox">
+                            <div class="menu_info_top">
+                                <div class="menu_info_detail">
+                                    <p>
+                                        {{ save_food_list.name }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <div class="save_text_list">
+                                        <div class="save_txt" food_id="{{save_food_list.id}}" id="memo_text_{{save_food_list.id}}">
+                                            메모 저장
+                                        </div>
+                                        <div class="save_txt">
+                                            |
+                                        </div>
+                                        <span id="save_{{save_food_list.id}}" food_id="{{save_food_list.id}}" class="save">
+                                            저장 취소
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu_info_bottom">
+                                {% for memo in save_food_list.memo_set.all %}
+                                <textarea class="textarea" id="textarea_{{save_food_list.id}}" name="content" rows="2">{{ memo.memo }}</textarea>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="save_text_list">
-                        <div class="save_txt">
-                            메모 추가 
-                        </div>
-                        <div class="save_txt">
-                            |
-                        </div>
-                        <span id="save_{{save_food_list.id}}" food_id="{{save_food_list.id}}" class="save">
-                            저장 취소
-                        </span>
                     </div>
                 </li>
             {% endfor %}
