@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h1>이메일 : {{ user.email }}</h1>
+<h1>이름 : {{ user.name }}</h1>
+<h1>닉네임 : {{ user.nickname }}</h1>   
+<h1>생년월일 : {{ user.birth_date }}</h1>   
+<h1>가입일 : {{ user.date_joined }}</h1>   
+<h1>pk : {{ user.pk }}</h1>  
+<hr>
+<a href="{% url 'update' pk=user.pk %}">수정</a>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary">수정</button>
+    </form>
+
+<h1>{{ user.pk }} : {{ user.username }}</h1>
+{% if request.user == user %}
+    <a href="{% url 'user:update' %}">회원 수정</a>
+    <form action="{% url 'accounts:delete' %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-secondary">회원 탈퇴</button>
+{% endif %}
+{% endblock content %}
+

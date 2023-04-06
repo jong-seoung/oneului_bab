@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 # from user.views import Login
 from content.views import Main, Index, recommend, Question_Answer, ToggleSave, SaveList
-from user.views import LoginView, LogoutView, FindIDView, FindPasswordView, JoinView, ChangePasswordView
+from user.views import LoginView, LogoutView, FindIDView, FindPasswordView, JoinView, ChangePasswordView, UserInfoeView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -37,6 +37,8 @@ urlpatterns = [
     path('findid/',FindIDView.as_view(),name="findidview"),
     path('findpassword/',FindPasswordView.as_view(),name="findpasswordview"),
     path('changepassword/<str:emailcode>/', ChangePasswordView.as_view(), name='changepasswordview'),
+    path('<int:pk>/update/', UserInfoeView.update, name='update'),
+    path('<int:pk>/', UserInfoeView.detail, name='detail'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

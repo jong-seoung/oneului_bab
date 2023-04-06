@@ -35,7 +35,7 @@
                             <div class="navbar_detail_row">
                                 {% if user.is_authenticated %}
                                     <div class="navbar_detail_row_text"><a href="/logout">로그아웃</a></div>
-                                    <div class="navbar_detail_row_text"><a href="/">회원정보</a></div>
+                                    <div class="navbar_detail_row_text"><a href="{% url 'detail' pk=user.pk %}">회원정보</a></div>
                                     <div class="navbar_detail_row_text"><a href="/savelist">저장됨</a></div>
                                 {% else %}
                                     <div class="navbar_detail_row_text"><a href="/login">로그인</a></div>

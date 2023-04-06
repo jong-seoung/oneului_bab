@@ -6,7 +6,7 @@ from django.views import View
 from django.contrib import messages
 from user.forms import CustomLoginForm
 from .models import User
-from django.shortcuts import render, HttpResponseRedirect, redirect
+from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404  
 import smtplib
 from email.mime.text import MIMEText
 
@@ -311,3 +311,34 @@ class ChangePasswordView(View):
                 messages.error(request, '비밀번호 변경에 실패했습니다.')
                 return HttpResponse(render(request, 'user/change_Password.html', info))
         return redirect('loginview')
+
+
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
+# 회원정보
+from .forms import CustomUserChangeForm
+
+class UserInfoeView(View):
+
+    def detail(request, pk):
+        user = User()
+        print()
+        user = get_object_or_404(User, pk=pk)
+        context = {
+            'user': user
+        }
+        return render(request, 'user/userdetail.html', context)
+
+    def update(request, pk):
+        if request.method == 'POST':
+            form = CustomUserChangeForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return render(request, 'user/userupdate.html')
+        else:
+            form = CustomUserChangeForm(instance=request.user)
+        context = {
+            'form': form
+        }
+        return render(request, 'user/userupdate.html', context)
