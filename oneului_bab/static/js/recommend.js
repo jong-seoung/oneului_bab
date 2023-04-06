@@ -89,7 +89,7 @@ function sendData() {
             success: function (response)    {
                 if(response.email === null){
                     alert('로그인이 필요한 기능입니다.');
-                    location.replace('/login');
+                    location.replace('user/login');
                 }
                 else {
                     alert('추천해주셔서 감사합니다.');

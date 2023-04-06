@@ -266,7 +266,7 @@ class FindPasswordView(View):
                 if self.check_email_password_code(request) == True:
                     request.session['emailcode'] = emailcode
                     request.session['email'] = email
-                    return redirect('/changepassword/'+emailcode)
+                    return redirect('/user/changepassword/'+emailcode)
                 elif self.check_email_code(request) == False:
                     messages.success(request, '인증번호가 잘못되었습니다. 다시 확인해주세요.')
                     return HttpResponse(render(request, 'user/find_Password.html', info))

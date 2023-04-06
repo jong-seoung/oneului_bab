@@ -16,7 +16,7 @@ $(document).ready(function() {
             success: function (response){
                 if(response.email === null){
                     alert('로그인이 필요한 기능입니다.');
-                    location.replace('/login');
+                    location.replace('user/login');
                 }
                 else{
                     console.log("#save_info_detail_"+response.id);
