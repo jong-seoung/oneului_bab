@@ -8,5 +8,7 @@
 <h1>가입일 : {{ user.date_joined }}</h1>   
 <h1>pk : {{ user.pk }}</h1>  
 <hr>
-<a href="{% url 'update' pk=user.pk %}">수정</a>
+<a href="{% url 'update' pk=user.pk %}">정보 수정</a>
+<a href="{% url 'changepassword' pk=user.pk %}">비밀번호 변경</a>
 {% endblock content %}
+

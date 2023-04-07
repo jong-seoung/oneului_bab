@@ -1,18 +1,33 @@
 {% extends 'index.html' %}
-
+{% load static %}
 
 {% block content %}
-    <form action="" method="POST">
+    <form method="POST">
         {% csrf_token %}
-        <button class="btn btn-primary">수정</button>
+        <div class="form_group">
+            <label for="id_name">이름</label>
+            <div class="form_control" id="id_name" name="name">{{ user.name }}</div>
+        </div>
+        <div class="form_group">
+            <label for="id_nickname">닉네임</label>
+            <input type="text" class="form_control" id="id_nickname" name="nickname" value="{{ user.nickname }}" required>
+        </div>
+        <div class="form_group">
+            <label for="id_birth_date">생년월일</label>
+            <input type="date" class="form_control" id="id_birth_date" name="birth_date" value="{{ parsed_date }}" required>
+        </div>
+        <div class="form_group">
+            <label for="id_password">비밀번호</label>
+            <input class="form_control" id="id_password" type="password" name="password" required value="{{password}}">
+        </div>
+        <div class="form_group">
+            <label for="id_password_check">비밀번호 재확인</label>
+            <input class="form_control" id="id_password_check" type="password" name="confirm_password" required value="{{confirm_password}}">
+        </div>
+        {% if request.user == user %}
+            {% csrf_token %}
+            <button class="btn_save" type="submit" name="submit" value="btn_save">저장</button>
+            <button class="btn_delete" type="submit" name="submit" value="btn_delete">회원 탈퇴</button>
+        {% endif %}
     </form>
-
-<h1>{{ user.pk }} : {{ user.username }}</h1>
-{% if request.user == user %}
-    <a href="{% url 'user:update' %}">회원 수정</a>
-    <form action="{% url 'accounts:delete' %}" method="POST">
-        {% csrf_token %}
-        <button class="btn btn-secondary">회원 탈퇴</button>
-{% endif %}
 {% endblock content %}
-

@@ -34,7 +34,7 @@
                             </div>
                             <div class="navbar_detail_row">
                                 {% if user.is_authenticated %}
-                                    <div class="navbar_detail_row_text"><a href="user/logout">로그아웃</a></div>
+                                    <div class="navbar_detail_row_text"><a href="/user/logout">로그아웃</a></div>
                                     <div class="navbar_detail_row_text"><a href="{% url 'detail' pk=user.pk %}">회원정보</a></div>
                                     <div class="navbar_detail_row_text"><a href="/savelist">저장됨</a></div>
                                 {% else %}
@@ -99,7 +99,6 @@
             </footer>
         </div>
         <!-- 페이지 별 자바스크립트 공간 -->
-        <script src="{% static 'js/index.js' %}"></script>
         {% block javascript %}
         {% endblock javascript %}
     </body>

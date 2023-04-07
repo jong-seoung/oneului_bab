@@ -9,7 +9,7 @@ from .models import User
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404  
 import smtplib
 from email.mime.text import MIMEText
-
+from datetime import datetime
 #########################
 import json
 import os
@@ -312,10 +312,6 @@ class ChangePasswordView(View):
                 return HttpResponse(render(request, 'user/change_Password.html', info))
         return redirect('loginview')
 
-
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
-
 # 회원정보
 from .forms import CustomUserChangeForm
 
@@ -323,22 +319,56 @@ class UserInfoeView(View):
 
     def detail(request, pk):
         user = User()
-        print()
         user = get_object_or_404(User, pk=pk)
         context = {
             'user': user
         }
         return render(request, 'user/userdetail.html', context)
+    
+    def chagepassword(request, pk):
+        user = User()
+        user = get_object_or_404(User, pk=pk)
+        context = {
+            'user': user
+        }
+        return render(request, 'user/userpasswordchange.html', context)
 
     def update(request, pk):
         if request.method == 'POST':
             form = CustomUserChangeForm(request.POST, instance=request.user)
+            input_date = request.POST.get('birth_date')
+            parsed_date = datetime.strptime(input_date, '%Y-%m-%d').strftime('%Y년 %m월 %d일')
             if form.is_valid():
                 form.save()
-                return render(request, 'user/userupdate.html')
+                return render(request, '/user/userupdate.html')
+            
+            # 버튼 동작 기능
+            password = request.POST['password']
+            confirm_password = request.POST['confirm_password']
+            nickname = request.POST['nickname']
+            birth_date = request.POST['birth_date']
+            user = User()
+            user = get_object_or_404(User, pk=pk)
+            if request.POST.get('submit') == 'btn_save':
+                if password == confirm_password:
+                    print("패스워드 동일")
+                    return redirect('detail', pk=user.pk)
+                else:
+                    print("패스워드가 틀림")
+                    return redirect('update', pk=user.pk)
+            elif request.POST.get('submit') == 'btn_delete':
+                print(request.POST)
+                print("삭제")
+                return redirect('detail', pk=user.pk)
         else:
             form = CustomUserChangeForm(instance=request.user)
-        context = {
-            'form': form
-        }
+            input_date = request.user.birth_date.strftime('%Y년 %m월 %d일')
+            parsed_date = request.user.birth_date.strftime('%Y-%m-%d')
+            context = {
+                'form': form,
+                'input_date': input_date,
+                'parsed_date': parsed_date
+            }
         return render(request, 'user/userupdate.html', context)
+            
+
